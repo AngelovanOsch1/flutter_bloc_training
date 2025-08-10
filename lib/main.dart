@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     try {
       final response = await http.get(
-        Uri.parse('https://38d8d2ea1529.ngrok-free.app/api/test'),
+        Uri.parse('https://832e42b95700.ngrok-free.app/api/test'),
         headers: {'Authorization': 'secret123'},
       );
 
