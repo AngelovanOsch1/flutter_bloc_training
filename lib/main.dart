@@ -10,7 +10,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     try {
       final response = await http.get(
-        Uri.parse(''),
+        Uri.parse('https://38d8d2ea1529.ngrok-free.app/api/test'),
         headers: {'Authorization': 'secret123'},
       );
 
@@ -72,11 +71,13 @@ class _MyHomePageState extends State<MyHomePage> {
           style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _checkConnection,
-        tooltip: 'Check Connection',
-        child: const Icon(Icons.wifi),
-      ),
+      floatingActionButton: _connectionStatus == 'Not connected'
+          ? FloatingActionButton(
+              onPressed: _checkConnection,
+              tooltip: 'Check Connection',
+              child: const Icon(Icons.wifi),
+            )
+          : Container(),
     );
   }
 }
