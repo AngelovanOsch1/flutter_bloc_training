@@ -45,8 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
       );
 
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        newStatus = data['message'];
+        final decoded = json.decode(response.body);
+
+        newStatus = decoded['data']?['response']?['message'] ?? 'No message';
       } else {
         newStatus = 'Failed to fetch data: ${response.statusCode}';
       }
