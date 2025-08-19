@@ -1,6 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_bloc_training/screens/series/series_list.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
@@ -18,68 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  String _connectionStatus = 'Not connected';
-
-  Future<void> _checkConnection() async {
-    String newStatus;
-
-    try {
-      final response = await http.get(
-        Uri.parse('${dotenv.env['BASE_API_URL']}/api/test'),
-        headers: {'Authorization': 'secret123'},
-      );
-
-      if (response.statusCode == 200) {
-        final decoded = json.decode(response.body);
-
-        newStatus = decoded['data']?['response']?['message'] ?? 'No message';
-      } else {
-        newStatus = 'Failed to fetch data: ${response.statusCode}';
-      }
-    } catch (e) {
-      newStatus = 'Error: $e';
-    }
-
-    setState(() {
-      _connectionStatus = newStatus;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Text(
-          _connectionStatus,
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-      ),
-      floatingActionButton: _connectionStatus == 'Not connected'
-          ? FloatingActionButton(
-              onPressed: _checkConnection,
-              tooltip: 'Check Connection',
-              child: const Icon(Icons.wifi),
-            )
-          : Container(),
+      home: const SeriesListScreen(),
     );
   }
 }
