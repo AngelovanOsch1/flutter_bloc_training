@@ -30,12 +30,10 @@ class SeriesRepository {
       headers: {
         'Authorization': 'secret123',
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       body: jsonEncode(series.toJson()),
     );
-
-    print(response.body);
-    print(response.statusCode);
 
     if (response.statusCode != 200) {
       throw Exception('Failed to update series');

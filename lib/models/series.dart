@@ -13,7 +13,7 @@ abstract class Series with _$Series {
     required int id,
     required String title,
     required String type,
-    required String coverImageUrl,
+    required String coverImage,
     required int episodeCount,
     required int minutesPerEpisode,
     required String airedStartDate,

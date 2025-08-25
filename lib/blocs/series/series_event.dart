@@ -5,11 +5,8 @@ part 'series_event.freezed.dart';
 
 @freezed
 abstract class SeriesEvent with _$SeriesEvent {
-  const factory SeriesEvent.fetchSeries({@Default(1) int page}) =
-      FetchSeriesEvent;
-  const factory SeriesEvent.updateSeries(SeriesListItem series) =
-      UpdateSeriesEvent;
+  const factory SeriesEvent.fetchSeries({@Default(1) int page}) = FetchSeriesEvent;
+  const factory SeriesEvent.updateSeries(SeriesListItem series) = UpdateSeriesEvent;
   const factory SeriesEvent.deleteSeries(int seriesId) = DeleteSeriesEvent;
-  const factory SeriesEvent.createSeries(SeriesListItem series) =
-      CreateSeriesEvent;
+  const factory SeriesEvent.createSeries(SeriesListItem series) = CreateSeriesEvent;
 }

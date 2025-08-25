@@ -1,6 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_bloc.dart';
+import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_state.dart';
+import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_event.dart';
 import 'package:flutter_bloc_training/models/series_list_item.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,26 +27,16 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
   late TextEditingController scoreController;
   late TextEditingController synopsisController;
 
-  File? _coverImage;
-
   @override
   void initState() {
     titleController = TextEditingController(text: widget.series.title);
     typeController = TextEditingController(text: widget.series.type);
-    episodesController = TextEditingController(
-      text: widget.series.episodeCount.toString(),
-    );
-    minutesController = TextEditingController(
-      text: widget.series.minutesPerEpisode.toString(),
-    );
+    episodesController = TextEditingController(text: widget.series.episodeCount.toString());
+    minutesController = TextEditingController(text: widget.series.minutesPerEpisode.toString());
     videoController = TextEditingController(text: widget.series.video);
-    startDateController = TextEditingController(
-      text: widget.series.airedStartDate,
-    );
+    startDateController = TextEditingController(text: widget.series.airedStartDate);
     endDateController = TextEditingController(text: widget.series.airedEndDate);
-    scoreController = TextEditingController(
-      text: widget.series.score.toString(),
-    );
+    scoreController = TextEditingController(text: widget.series.score.toString());
     synopsisController = TextEditingController(text: widget.series.synopsis);
     super.initState();
   }
@@ -66,120 +57,122 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Edit Series')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.grey, width: 4),
-                  ),
-                  child: ClipOval(
-                    child: _coverImage == null
-                        ? Image.network(
-                            widget.series.coverImageUrl,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.file(
-                            _coverImage!,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
-                  ),
-                ),
-                Positioned(
-                  bottom: -5,
-                  right: -5,
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: const BoxDecoration(
-                      color: Colors.green,
+    return BlocListener<ImagePickerBloc, ImagePickerState>(
+      listener: (context, state) {
+        state.maybeWhen(coverImageError: showCoverImageError, orElse: () {});
+      },
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Edit Series')),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
+                      border: Border.all(color: Colors.grey, width: 4),
                     ),
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      iconSize: 18,
-                      onPressed: () {
-                        _seriesCoverImage(ImageSource.gallery);
-                      },
-                      icon: const Icon(Icons.create, color: Colors.white),
+                    child: ClipOval(
+                      child: BlocBuilder<ImagePickerBloc, ImagePickerState>(
+                        buildWhen: (previous, current) =>
+                            current.maybeWhen(coverImagePicked: (_) => true, orElse: () => false),
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            coverImagePicked: (file) => Image.file(file, width: 100, height: 100, fit: BoxFit.cover),
+                            orElse: () =>
+                                Image.network(widget.series.coverImage, width: 100, height: 100, fit: BoxFit.cover),
+                          );
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(labelText: 'Title'),
-            ),
-            TextField(
-              controller: typeController,
-              decoration: const InputDecoration(labelText: 'Type'),
-            ),
-            TextField(
-              controller: episodesController,
-              decoration: const InputDecoration(labelText: 'Episodes'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: minutesController,
-              decoration: const InputDecoration(
-                labelText: 'Minutes per Episode',
+                  Positioned(
+                    bottom: -5,
+                    right: -5,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
+                      child: IconButton(
+                        padding: EdgeInsets.zero,
+                        iconSize: 18,
+                        onPressed: () {
+                          context.read<ImagePickerBloc>().add(
+                            ImagePickerEvent.pickSeriesCoverImage(ImageSource.gallery),
+                          );
+                        },
+                        icon: const Icon(Icons.create, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: videoController,
-              decoration: const InputDecoration(labelText: 'Video'),
-            ),
-            TextField(
-              controller: startDateController,
-              decoration: const InputDecoration(labelText: 'Start Date'),
-            ),
-            TextField(
-              controller: endDateController,
-              decoration: const InputDecoration(labelText: 'End Date'),
-            ),
-            TextField(
-              controller: scoreController,
-              decoration: const InputDecoration(labelText: 'Score'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: synopsisController,
-              decoration: const InputDecoration(labelText: 'Synopsis'),
-              maxLines: 3,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(onPressed: _save, child: const Text('Save')),
-          ],
+              const SizedBox(height: 20),
+
+              TextField(
+                controller: titleController,
+                decoration: const InputDecoration(labelText: 'Title'),
+              ),
+              TextField(
+                controller: typeController,
+                decoration: const InputDecoration(labelText: 'Type'),
+              ),
+              TextField(
+                controller: episodesController,
+                decoration: const InputDecoration(labelText: 'Episodes'),
+                keyboardType: TextInputType.number,
+              ),
+              TextField(
+                controller: minutesController,
+                decoration: const InputDecoration(labelText: 'Minutes per Episode'),
+                keyboardType: TextInputType.number,
+              ),
+              TextField(
+                controller: videoController,
+                decoration: const InputDecoration(labelText: 'Video'),
+              ),
+              TextField(
+                controller: startDateController,
+                decoration: const InputDecoration(labelText: 'Start Date'),
+              ),
+              TextField(
+                controller: endDateController,
+                decoration: const InputDecoration(labelText: 'End Date'),
+              ),
+              TextField(
+                controller: scoreController,
+                decoration: const InputDecoration(labelText: 'Score'),
+                keyboardType: TextInputType.number,
+              ),
+              TextField(
+                controller: synopsisController,
+                decoration: const InputDecoration(labelText: 'Synopsis'),
+                maxLines: 3,
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(onPressed: _save, child: const Text('Save')),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void showCoverImageError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   void _save() {
     final updatedSeries = widget.series.copyWith(
       title: titleController.text,
       type: typeController.text,
-      episodeCount:
-          int.tryParse(episodesController.text) ?? widget.series.episodeCount,
-      minutesPerEpisode:
-          int.tryParse(minutesController.text) ??
-          widget.series.minutesPerEpisode,
+      episodeCount: int.tryParse(episodesController.text) ?? widget.series.episodeCount,
+      minutesPerEpisode: int.tryParse(minutesController.text) ?? widget.series.minutesPerEpisode,
       video: videoController.text,
       airedStartDate: startDateController.text,
       airedEndDate: endDateController.text,
@@ -190,14 +183,5 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
     print(updatedSeries);
     context.read<SeriesBloc>().add(SeriesEvent.updateSeries(updatedSeries));
     Navigator.pop(context);
-  }
-
-  Future<void> _seriesCoverImage(ImageSource source) async {
-    final pickedFile = await ImagePicker().pickImage(source: source);
-    setState(() {
-      if (pickedFile != null) {
-        _coverImage = File(pickedFile.path);
-      }
-    });
   }
 }

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SeriesListItem {
 
- int get id; String get title; String get type; String get coverImageUrl; int get episodeCount; int get minutesPerEpisode; String get video; String get airedStartDate; String get airedEndDate; double get score; String get synopsis;
+ int get id; String get title; String get type; String get coverImage; int get episodeCount; int get minutesPerEpisode; String get video; String get airedStartDate; String get airedEndDate; double get score; String get synopsis;
 /// Create a copy of SeriesListItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $SeriesListItemCopyWith<SeriesListItem> get copyWith => _$SeriesListItemCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SeriesListItem&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.coverImageUrl, coverImageUrl) || other.coverImageUrl == coverImageUrl)&&(identical(other.episodeCount, episodeCount) || other.episodeCount == episodeCount)&&(identical(other.minutesPerEpisode, minutesPerEpisode) || other.minutesPerEpisode == minutesPerEpisode)&&(identical(other.video, video) || other.video == video)&&(identical(other.airedStartDate, airedStartDate) || other.airedStartDate == airedStartDate)&&(identical(other.airedEndDate, airedEndDate) || other.airedEndDate == airedEndDate)&&(identical(other.score, score) || other.score == score)&&(identical(other.synopsis, synopsis) || other.synopsis == synopsis));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SeriesListItem&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.coverImage, coverImage) || other.coverImage == coverImage)&&(identical(other.episodeCount, episodeCount) || other.episodeCount == episodeCount)&&(identical(other.minutesPerEpisode, minutesPerEpisode) || other.minutesPerEpisode == minutesPerEpisode)&&(identical(other.video, video) || other.video == video)&&(identical(other.airedStartDate, airedStartDate) || other.airedStartDate == airedStartDate)&&(identical(other.airedEndDate, airedEndDate) || other.airedEndDate == airedEndDate)&&(identical(other.score, score) || other.score == score)&&(identical(other.synopsis, synopsis) || other.synopsis == synopsis));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,type,coverImageUrl,episodeCount,minutesPerEpisode,video,airedStartDate,airedEndDate,score,synopsis);
+int get hashCode => Object.hash(runtimeType,id,title,type,coverImage,episodeCount,minutesPerEpisode,video,airedStartDate,airedEndDate,score,synopsis);
 
 @override
 String toString() {
-  return 'SeriesListItem(id: $id, title: $title, type: $type, coverImageUrl: $coverImageUrl, episodeCount: $episodeCount, minutesPerEpisode: $minutesPerEpisode, video: $video, airedStartDate: $airedStartDate, airedEndDate: $airedEndDate, score: $score, synopsis: $synopsis)';
+  return 'SeriesListItem(id: $id, title: $title, type: $type, coverImage: $coverImage, episodeCount: $episodeCount, minutesPerEpisode: $minutesPerEpisode, video: $video, airedStartDate: $airedStartDate, airedEndDate: $airedEndDate, score: $score, synopsis: $synopsis)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $SeriesListItemCopyWith<$Res>  {
   factory $SeriesListItemCopyWith(SeriesListItem value, $Res Function(SeriesListItem) _then) = _$SeriesListItemCopyWithImpl;
 @useResult
 $Res call({
- int id, String title, String type, String coverImageUrl, int episodeCount, int minutesPerEpisode, String video, String airedStartDate, String airedEndDate, double score, String synopsis
+ int id, String title, String type, String coverImage, int episodeCount, int minutesPerEpisode, String video, String airedStartDate, String airedEndDate, double score, String synopsis
 });
 
 
@@ -65,12 +65,12 @@ class _$SeriesListItemCopyWithImpl<$Res>
 
 /// Create a copy of SeriesListItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? type = null,Object? coverImageUrl = null,Object? episodeCount = null,Object? minutesPerEpisode = null,Object? video = null,Object? airedStartDate = null,Object? airedEndDate = null,Object? score = null,Object? synopsis = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? type = null,Object? coverImage = null,Object? episodeCount = null,Object? minutesPerEpisode = null,Object? video = null,Object? airedStartDate = null,Object? airedEndDate = null,Object? score = null,Object? synopsis = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as String,coverImageUrl: null == coverImageUrl ? _self.coverImageUrl : coverImageUrl // ignore: cast_nullable_to_non_nullable
+as String,coverImage: null == coverImage ? _self.coverImage : coverImage // ignore: cast_nullable_to_non_nullable
 as String,episodeCount: null == episodeCount ? _self.episodeCount : episodeCount // ignore: cast_nullable_to_non_nullable
 as int,minutesPerEpisode: null == minutesPerEpisode ? _self.minutesPerEpisode : minutesPerEpisode // ignore: cast_nullable_to_non_nullable
 as int,video: null == video ? _self.video : video // ignore: cast_nullable_to_non_nullable
@@ -163,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImageUrl,  int episodeCount,  int minutesPerEpisode,  String video,  String airedStartDate,  String airedEndDate,  double score,  String synopsis)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String video,  String airedStartDate,  String airedEndDate,  double score,  String synopsis)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SeriesListItem() when $default != null:
-return $default(_that.id,_that.title,_that.type,_that.coverImageUrl,_that.episodeCount,_that.minutesPerEpisode,_that.video,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis);case _:
+return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.video,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis);case _:
   return orElse();
 
 }
@@ -184,10 +184,10 @@ return $default(_that.id,_that.title,_that.type,_that.coverImageUrl,_that.episod
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImageUrl,  int episodeCount,  int minutesPerEpisode,  String video,  String airedStartDate,  String airedEndDate,  double score,  String synopsis)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String video,  String airedStartDate,  String airedEndDate,  double score,  String synopsis)  $default,) {final _that = this;
 switch (_that) {
 case _SeriesListItem():
-return $default(_that.id,_that.title,_that.type,_that.coverImageUrl,_that.episodeCount,_that.minutesPerEpisode,_that.video,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis);case _:
+return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.video,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +204,10 @@ return $default(_that.id,_that.title,_that.type,_that.coverImageUrl,_that.episod
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String type,  String coverImageUrl,  int episodeCount,  int minutesPerEpisode,  String video,  String airedStartDate,  String airedEndDate,  double score,  String synopsis)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String video,  String airedStartDate,  String airedEndDate,  double score,  String synopsis)?  $default,) {final _that = this;
 switch (_that) {
 case _SeriesListItem() when $default != null:
-return $default(_that.id,_that.title,_that.type,_that.coverImageUrl,_that.episodeCount,_that.minutesPerEpisode,_that.video,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis);case _:
+return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.video,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis);case _:
   return null;
 
 }
@@ -219,13 +219,13 @@ return $default(_that.id,_that.title,_that.type,_that.coverImageUrl,_that.episod
 @JsonSerializable()
 
 class _SeriesListItem implements SeriesListItem {
-  const _SeriesListItem({required this.id, required this.title, required this.type, required this.coverImageUrl, required this.episodeCount, required this.minutesPerEpisode, required this.video, required this.airedStartDate, required this.airedEndDate, required this.score, required this.synopsis});
+  const _SeriesListItem({required this.id, required this.title, required this.type, required this.coverImage, required this.episodeCount, required this.minutesPerEpisode, required this.video, required this.airedStartDate, required this.airedEndDate, required this.score, required this.synopsis});
   factory _SeriesListItem.fromJson(Map<String, dynamic> json) => _$SeriesListItemFromJson(json);
 
 @override final  int id;
 @override final  String title;
 @override final  String type;
-@override final  String coverImageUrl;
+@override final  String coverImage;
 @override final  int episodeCount;
 @override final  int minutesPerEpisode;
 @override final  String video;
@@ -247,16 +247,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SeriesListItem&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.coverImageUrl, coverImageUrl) || other.coverImageUrl == coverImageUrl)&&(identical(other.episodeCount, episodeCount) || other.episodeCount == episodeCount)&&(identical(other.minutesPerEpisode, minutesPerEpisode) || other.minutesPerEpisode == minutesPerEpisode)&&(identical(other.video, video) || other.video == video)&&(identical(other.airedStartDate, airedStartDate) || other.airedStartDate == airedStartDate)&&(identical(other.airedEndDate, airedEndDate) || other.airedEndDate == airedEndDate)&&(identical(other.score, score) || other.score == score)&&(identical(other.synopsis, synopsis) || other.synopsis == synopsis));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SeriesListItem&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.coverImage, coverImage) || other.coverImage == coverImage)&&(identical(other.episodeCount, episodeCount) || other.episodeCount == episodeCount)&&(identical(other.minutesPerEpisode, minutesPerEpisode) || other.minutesPerEpisode == minutesPerEpisode)&&(identical(other.video, video) || other.video == video)&&(identical(other.airedStartDate, airedStartDate) || other.airedStartDate == airedStartDate)&&(identical(other.airedEndDate, airedEndDate) || other.airedEndDate == airedEndDate)&&(identical(other.score, score) || other.score == score)&&(identical(other.synopsis, synopsis) || other.synopsis == synopsis));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,type,coverImageUrl,episodeCount,minutesPerEpisode,video,airedStartDate,airedEndDate,score,synopsis);
+int get hashCode => Object.hash(runtimeType,id,title,type,coverImage,episodeCount,minutesPerEpisode,video,airedStartDate,airedEndDate,score,synopsis);
 
 @override
 String toString() {
-  return 'SeriesListItem(id: $id, title: $title, type: $type, coverImageUrl: $coverImageUrl, episodeCount: $episodeCount, minutesPerEpisode: $minutesPerEpisode, video: $video, airedStartDate: $airedStartDate, airedEndDate: $airedEndDate, score: $score, synopsis: $synopsis)';
+  return 'SeriesListItem(id: $id, title: $title, type: $type, coverImage: $coverImage, episodeCount: $episodeCount, minutesPerEpisode: $minutesPerEpisode, video: $video, airedStartDate: $airedStartDate, airedEndDate: $airedEndDate, score: $score, synopsis: $synopsis)';
 }
 
 
@@ -267,7 +267,7 @@ abstract mixin class _$SeriesListItemCopyWith<$Res> implements $SeriesListItemCo
   factory _$SeriesListItemCopyWith(_SeriesListItem value, $Res Function(_SeriesListItem) _then) = __$SeriesListItemCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title, String type, String coverImageUrl, int episodeCount, int minutesPerEpisode, String video, String airedStartDate, String airedEndDate, double score, String synopsis
+ int id, String title, String type, String coverImage, int episodeCount, int minutesPerEpisode, String video, String airedStartDate, String airedEndDate, double score, String synopsis
 });
 
 
@@ -284,12 +284,12 @@ class __$SeriesListItemCopyWithImpl<$Res>
 
 /// Create a copy of SeriesListItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? type = null,Object? coverImageUrl = null,Object? episodeCount = null,Object? minutesPerEpisode = null,Object? video = null,Object? airedStartDate = null,Object? airedEndDate = null,Object? score = null,Object? synopsis = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? type = null,Object? coverImage = null,Object? episodeCount = null,Object? minutesPerEpisode = null,Object? video = null,Object? airedStartDate = null,Object? airedEndDate = null,Object? score = null,Object? synopsis = null,}) {
   return _then(_SeriesListItem(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as String,coverImageUrl: null == coverImageUrl ? _self.coverImageUrl : coverImageUrl // ignore: cast_nullable_to_non_nullable
+as String,coverImage: null == coverImage ? _self.coverImage : coverImage // ignore: cast_nullable_to_non_nullable
 as String,episodeCount: null == episodeCount ? _self.episodeCount : episodeCount // ignore: cast_nullable_to_non_nullable
 as int,minutesPerEpisode: null == minutesPerEpisode ? _self.minutesPerEpisode : minutesPerEpisode // ignore: cast_nullable_to_non_nullable
 as int,video: null == video ? _self.video : video // ignore: cast_nullable_to_non_nullable
