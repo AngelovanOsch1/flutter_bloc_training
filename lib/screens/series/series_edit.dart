@@ -92,12 +92,12 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
                     ),
                   ),
                   Positioned(
-                    bottom: -5,
-                    right: -5,
+                    bottom: 2,
+                    right: 2,
                     child: Container(
                       width: 30,
                       height: 30,
-                      decoration: const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
+                      decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
                       child: IconButton(
                         padding: EdgeInsets.zero,
                         iconSize: 18,

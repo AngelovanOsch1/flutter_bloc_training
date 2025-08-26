@@ -1,155 +1,147 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_training/blocs/series/series_bloc.dart';
-import 'package:flutter_bloc_training/blocs/series/series_event.dart';
-import 'package:flutter_bloc_training/models/series_list_item.dart';
+import 'package:flutter_bloc_training/blocs/forms/series/series_form_bloc.dart';
+import 'package:flutter_bloc_training/blocs/forms/series/series_form_event.dart';
+import 'package:flutter_bloc_training/blocs/forms/series/series_form_state.dart';
+import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_bloc.dart';
+import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_event.dart';
+import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_state.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CreateSeriesScreen extends StatefulWidget {
+class CreateSeriesScreen extends StatelessWidget {
   const CreateSeriesScreen({super.key});
 
   @override
-  State<CreateSeriesScreen> createState() => _CreateSeriesScreenState();
-}
-
-class _CreateSeriesScreenState extends State<CreateSeriesScreen> {
-  final titleController = TextEditingController();
-  final typeController = TextEditingController();
-  final episodesController = TextEditingController();
-  final startDateController = TextEditingController();
-  final endDateController = TextEditingController();
-  final scoreController = TextEditingController();
-
-  File? _coverImage;
-
-  @override
-  void dispose() {
-    titleController.dispose();
-    typeController.dispose();
-    episodesController.dispose();
-    startDateController.dispose();
-    endDateController.dispose();
-    scoreController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Create Series')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.grey, width: 4),
-                  ),
-                  child: ClipOval(
-                    child: _coverImage != null
-                        ? Image.file(
-                            _coverImage!,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => ImagePickerBloc()),
+        BlocProvider(create: (_) => SeriesFormBloc()),
+      ],
+      child: BlocListener<ImagePickerBloc, ImagePickerState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            coverImagePicked: (file) => context.read<SeriesFormBloc>().add(SeriesFormEvent.coverImageChanged(file)),
+            coverImageError: (msg) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg))),
+            orElse: () {},
+          );
+        },
+        child: Scaffold(
+          appBar: AppBar(title: const Text('Create Series')),
+          body: SafeArea(
+            child: BlocBuilder<SeriesFormBloc, SeriesFormState>(
+              builder: (context, state) {
+                return SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
                             width: 100,
                             height: 100,
-                            fit: BoxFit.cover,
-                          )
-                        : Container(
-                            color: Colors.grey.shade300,
-                            child: const Icon(
-                              Icons.image,
-                              size: 50,
-                              color: Colors.white,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.grey, width: 4),
+                            ),
+                            child: ClipOval(
+                              child: state.coverImage != null
+                                  ? Image.file(state.coverImage!, fit: BoxFit.cover)
+                                  : Container(
+                                      color: Colors.grey.shade300,
+                                      child: const Icon(Icons.image, size: 50, color: Colors.white),
+                                    ),
                             ),
                           ),
+                          Positioned(
+                            bottom: 2,
+                            right: 2,
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              decoration: const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                iconSize: 18,
+                                onPressed: () {
+                                  context.read<ImagePickerBloc>().add(
+                                    ImagePickerEvent.pickSeriesCoverImage(ImageSource.gallery),
+                                  );
+                                },
+                                icon: const Icon(Icons.create, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Title'),
+                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.titleChanged(val)),
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Type'),
+                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.typeChanged(val)),
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Episodes'),
+                        keyboardType: TextInputType.number,
+                        onChanged: (val) {
+                          final parsed = int.tryParse(val) ?? 0;
+                          context.read<SeriesFormBloc>().add(SeriesFormEvent.episodesChanged(parsed));
+                        },
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Minutes per Episode'),
+                        keyboardType: TextInputType.number,
+                        onChanged: (val) {
+                          final parsed = int.tryParse(val) ?? 0;
+                          context.read<SeriesFormBloc>().add(SeriesFormEvent.minutesChanged(parsed));
+                        },
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Video'),
+                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.videoChanged(val)),
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Start Date'),
+                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.startDateChanged(val)),
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'End Date'),
+                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.endDateChanged(val)),
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Score'),
+                        keyboardType: TextInputType.number,
+                        onChanged: (val) {
+                          final parsed = double.tryParse(val) ?? 0.0;
+                          context.read<SeriesFormBloc>().add(SeriesFormEvent.scoreChanged(parsed));
+                        },
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(labelText: 'Synopsis'),
+                        maxLines: 3,
+                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.synopsisChanged(val)),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: state.isFormValid && !state.isSubmitting
+                            ? () => context.read<SeriesFormBloc>().add(const SeriesFormEvent.submit())
+                            : null,
+                        child: state.isSubmitting
+                            ? const CircularProgressIndicator(color: Colors.white)
+                            : const Text('Create'),
+                      ),
+                    ],
                   ),
-                ),
-                Positioned(
-                  bottom: -5,
-                  right: -5,
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: const BoxDecoration(
-                      color: Colors.green,
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      iconSize: 18,
-                      onPressed: () {
-                        _pickCoverImage(ImageSource.gallery);
-                      },
-                      icon: const Icon(Icons.create, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
+                );
+              },
             ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(labelText: 'Title'),
-            ),
-            TextField(
-              controller: typeController,
-              decoration: const InputDecoration(labelText: 'Type'),
-            ),
-            TextField(
-              controller: episodesController,
-              decoration: const InputDecoration(labelText: 'Episodes'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: startDateController,
-              decoration: const InputDecoration(labelText: 'Start Date'),
-            ),
-            TextField(
-              controller: endDateController,
-              decoration: const InputDecoration(labelText: 'End Date'),
-            ),
-            TextField(
-              controller: scoreController,
-              decoration: const InputDecoration(labelText: 'Score'),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(onPressed: _save, child: const Text('Create')),
-          ],
+          ),
         ),
       ),
     );
-  }
-
-  void _save() {
-    // final newSeries = SeriesListItem(
-    //   id: 0,
-    //   title: titleController.text,
-    //   type: typeController.text,
-    //   coverImageUrl: _coverImage!.path,
-    //   episodeCount: int.tryParse(episodesController.text) ?? 0,
-    //   airedStartDate: startDateController.text,
-    //   airedEndDate: endDateController.text,
-    //   score: double.tryParse(scoreController.text) ?? 0,
-    // );
-
-    // context.read<SeriesBloc>().add(SeriesEvent.createSeries(newSeries));
-    // Navigator.pop(context);
-  }
-
-  Future<void> _pickCoverImage(ImageSource source) async {
-    final pickedFile = await ImagePicker().pickImage(source: source);
-    setState(() {
-      if (pickedFile != null) {
-        _coverImage = File(pickedFile.path);
-      }
-    });
   }
 }
