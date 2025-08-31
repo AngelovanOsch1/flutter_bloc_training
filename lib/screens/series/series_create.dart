@@ -1,27 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_training/blocs/forms/series/series_form_bloc.dart';
-import 'package:flutter_bloc_training/blocs/forms/series/series_form_event.dart';
-import 'package:flutter_bloc_training/blocs/forms/series/series_form_state.dart';
 import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_bloc.dart';
-import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_event.dart';
 import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_state.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_bloc_training/blocs/series/series_bloc.dart';
+import 'package:flutter_bloc_training/blocs/series/series_event.dart';
+import 'package:flutter_bloc_training/models/series_list_item.dart';
+import 'package:flutter_bloc_training/repositories/series_image_cover_repository.dart';
+import 'package:flutter_bloc_training/validators/required_validator.dart';
 
-class CreateSeriesScreen extends StatelessWidget {
+class CreateSeriesScreen extends StatefulWidget {
   const CreateSeriesScreen({super.key});
 
   @override
+  State<CreateSeriesScreen> createState() => _CreateSeriesScreenState();
+}
+
+class _CreateSeriesScreenState extends State<CreateSeriesScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController typeController = TextEditingController();
+  final TextEditingController episodesController = TextEditingController();
+  final TextEditingController minutesController = TextEditingController();
+  final TextEditingController videoController = TextEditingController();
+  final TextEditingController startDateController = TextEditingController();
+  final TextEditingController endDateController = TextEditingController();
+  final TextEditingController scoreController = TextEditingController();
+  final TextEditingController synopsisController = TextEditingController();
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    typeController.dispose();
+    episodesController.dispose();
+    minutesController.dispose();
+    videoController.dispose();
+    startDateController.dispose();
+    endDateController.dispose();
+    scoreController.dispose();
+    synopsisController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => ImagePickerBloc()),
-        BlocProvider(create: (_) => SeriesFormBloc()),
-      ],
+    return BlocProvider(
+      create: (context) => ImagePickerBloc(context.read<SeriesCoverImageRepository>()),
       child: BlocListener<ImagePickerBloc, ImagePickerState>(
         listener: (context, state) {
           state.maybeWhen(
-            coverImagePicked: (file) => context.read<SeriesFormBloc>().add(SeriesFormEvent.coverImageChanged(file)),
             coverImageError: (msg) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg))),
             orElse: () {},
           );
@@ -29,119 +56,91 @@ class CreateSeriesScreen extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(title: const Text('Create Series')),
           body: SafeArea(
-            child: BlocBuilder<SeriesFormBloc, SeriesFormState>(
-              builder: (context, state) {
-                return SingleChildScrollView(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.grey, width: 4),
-                            ),
-                            child: ClipOval(
-                              child: state.coverImage != null
-                                  ? Image.file(state.coverImage!, fit: BoxFit.cover)
-                                  : Container(
-                                      color: Colors.grey.shade300,
-                                      child: const Icon(Icons.image, size: 50, color: Colors.white),
-                                    ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 2,
-                            right: 2,
-                            child: Container(
-                              width: 30,
-                              height: 30,
-                              decoration: const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-                              child: IconButton(
-                                padding: EdgeInsets.zero,
-                                iconSize: 18,
-                                onPressed: () {
-                                  context.read<ImagePickerBloc>().add(
-                                    ImagePickerEvent.pickSeriesCoverImage(ImageSource.gallery),
-                                  );
-                                },
-                                icon: const Icon(Icons.create, color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: 'Title'),
-                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.titleChanged(val)),
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: 'Type'),
-                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.typeChanged(val)),
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: 'Episodes'),
-                        keyboardType: TextInputType.number,
-                        onChanged: (val) {
-                          final parsed = int.tryParse(val) ?? 0;
-                          context.read<SeriesFormBloc>().add(SeriesFormEvent.episodesChanged(parsed));
-                        },
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: 'Minutes per Episode'),
-                        keyboardType: TextInputType.number,
-                        onChanged: (val) {
-                          final parsed = int.tryParse(val) ?? 0;
-                          context.read<SeriesFormBloc>().add(SeriesFormEvent.minutesChanged(parsed));
-                        },
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: 'Video'),
-                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.videoChanged(val)),
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: 'Start Date'),
-                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.startDateChanged(val)),
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: 'End Date'),
-                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.endDateChanged(val)),
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: 'Score'),
-                        keyboardType: TextInputType.number,
-                        onChanged: (val) {
-                          final parsed = double.tryParse(val) ?? 0.0;
-                          context.read<SeriesFormBloc>().add(SeriesFormEvent.scoreChanged(parsed));
-                        },
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: 'Synopsis'),
-                        maxLines: 3,
-                        onChanged: (val) => context.read<SeriesFormBloc>().add(SeriesFormEvent.synopsisChanged(val)),
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: state.isFormValid && !state.isSubmitting
-                            ? () => context.read<SeriesFormBloc>().add(const SeriesFormEvent.submit())
-                            : null,
-                        child: state.isSubmitting
-                            ? const CircularProgressIndicator(color: Colors.white)
-                            : const Text('Create'),
-                      ),
-                    ],
-                  ),
-                );
-              },
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: titleController,
+                      decoration: const InputDecoration(labelText: 'Title'),
+                      validator: RequiredValidator(fieldName: 'Title').call,
+                    ),
+                    TextFormField(
+                      controller: typeController,
+                      decoration: const InputDecoration(labelText: 'Type'),
+                      validator: RequiredValidator(fieldName: 'Type').call,
+                    ),
+                    TextFormField(
+                      controller: episodesController,
+                      decoration: const InputDecoration(labelText: 'Episodes'),
+                      keyboardType: TextInputType.number,
+                      validator: RequiredValidator(fieldName: 'Episodes').call,
+                    ),
+                    TextFormField(
+                      controller: minutesController,
+                      decoration: const InputDecoration(labelText: 'Minutes per Episode'),
+                      keyboardType: TextInputType.number,
+                      validator: RequiredValidator(fieldName: 'Minutes per Episode').call,
+                    ),
+                    TextFormField(
+                      controller: videoController,
+                      decoration: const InputDecoration(labelText: 'Video'),
+                      validator: RequiredValidator(fieldName: 'Video').call,
+                    ),
+                    TextFormField(
+                      controller: startDateController,
+                      decoration: const InputDecoration(labelText: 'Start Date'),
+                      validator: RequiredValidator(fieldName: 'Start Date').call,
+                    ),
+                    TextFormField(
+                      controller: endDateController,
+                      decoration: const InputDecoration(labelText: 'End Date'),
+                      validator: RequiredValidator(fieldName: 'End Date').call,
+                    ),
+                    TextFormField(
+                      controller: scoreController,
+                      decoration: const InputDecoration(labelText: 'Score'),
+                      keyboardType: TextInputType.number,
+                      validator: RequiredValidator(fieldName: 'Score').call,
+                    ),
+                    TextFormField(
+                      controller: synopsisController,
+                      decoration: const InputDecoration(labelText: 'Synopsis'),
+                      maxLines: 3,
+                      validator: RequiredValidator(fieldName: 'Synopsis').call,
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(onPressed: _submitForm, child: const Text('Create')),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      final series = SeriesListItem(
+        id: 0,
+        title: titleController.text,
+        type: typeController.text,
+        episodeCount: int.tryParse(episodesController.text) ?? 0,
+        minutesPerEpisode: int.tryParse(minutesController.text) ?? 0,
+        video: videoController.text,
+        airedStartDate: startDateController.text,
+        airedEndDate: endDateController.text,
+        score: double.tryParse(scoreController.text) ?? 0.0,
+        synopsis: synopsisController.text,
+      );
+      context.read<SeriesBloc>().add(SeriesEvent.createSeries(series));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please fill all required fields.")));
+    }
   }
 }

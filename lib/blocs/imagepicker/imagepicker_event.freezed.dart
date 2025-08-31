@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ImagePickerEvent {
 
- ImageSource get source;
+ ImageSource get source; int get id;
 /// Create a copy of ImagePickerEvent
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ImagePickerEventCopyWith<ImagePickerEvent> get copyWith => _$ImagePickerEventCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImagePickerEvent&&(identical(other.source, source) || other.source == source));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImagePickerEvent&&(identical(other.source, source) || other.source == source)&&(identical(other.id, id) || other.id == id));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,source);
+int get hashCode => Object.hash(runtimeType,source,id);
 
 @override
 String toString() {
-  return 'ImagePickerEvent(source: $source)';
+  return 'ImagePickerEvent(source: $source, id: $id)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ImagePickerEventCopyWith<$Res>  {
   factory $ImagePickerEventCopyWith(ImagePickerEvent value, $Res Function(ImagePickerEvent) _then) = _$ImagePickerEventCopyWithImpl;
 @useResult
 $Res call({
- ImageSource source
+ ImageSource source, int id
 });
 
 
@@ -62,10 +62,11 @@ class _$ImagePickerEventCopyWithImpl<$Res>
 
 /// Create a copy of ImagePickerEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? source = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? source = null,Object? id = null,}) {
   return _then(_self.copyWith(
 source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
-as ImageSource,
+as ImageSource,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -150,10 +151,10 @@ return pickSeriesCoverImage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( ImageSource source)?  pickSeriesCoverImage,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( ImageSource source,  int id)?  pickSeriesCoverImage,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case PickSeriesCoverImageEvent() when pickSeriesCoverImage != null:
-return pickSeriesCoverImage(_that.source);case _:
+return pickSeriesCoverImage(_that.source,_that.id);case _:
   return orElse();
 
 }
@@ -171,10 +172,10 @@ return pickSeriesCoverImage(_that.source);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( ImageSource source)  pickSeriesCoverImage,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( ImageSource source,  int id)  pickSeriesCoverImage,}) {final _that = this;
 switch (_that) {
 case PickSeriesCoverImageEvent():
-return pickSeriesCoverImage(_that.source);case _:
+return pickSeriesCoverImage(_that.source,_that.id);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -191,10 +192,10 @@ return pickSeriesCoverImage(_that.source);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( ImageSource source)?  pickSeriesCoverImage,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( ImageSource source,  int id)?  pickSeriesCoverImage,}) {final _that = this;
 switch (_that) {
 case PickSeriesCoverImageEvent() when pickSeriesCoverImage != null:
-return pickSeriesCoverImage(_that.source);case _:
+return pickSeriesCoverImage(_that.source,_that.id);case _:
   return null;
 
 }
@@ -206,10 +207,11 @@ return pickSeriesCoverImage(_that.source);case _:
 
 
 class PickSeriesCoverImageEvent implements ImagePickerEvent {
-  const PickSeriesCoverImageEvent(this.source);
+  const PickSeriesCoverImageEvent(this.source, this.id);
   
 
 @override final  ImageSource source;
+@override final  int id;
 
 /// Create a copy of ImagePickerEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -221,16 +223,16 @@ $PickSeriesCoverImageEventCopyWith<PickSeriesCoverImageEvent> get copyWith => _$
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PickSeriesCoverImageEvent&&(identical(other.source, source) || other.source == source));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PickSeriesCoverImageEvent&&(identical(other.source, source) || other.source == source)&&(identical(other.id, id) || other.id == id));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,source);
+int get hashCode => Object.hash(runtimeType,source,id);
 
 @override
 String toString() {
-  return 'ImagePickerEvent.pickSeriesCoverImage(source: $source)';
+  return 'ImagePickerEvent.pickSeriesCoverImage(source: $source, id: $id)';
 }
 
 
@@ -241,7 +243,7 @@ abstract mixin class $PickSeriesCoverImageEventCopyWith<$Res> implements $ImageP
   factory $PickSeriesCoverImageEventCopyWith(PickSeriesCoverImageEvent value, $Res Function(PickSeriesCoverImageEvent) _then) = _$PickSeriesCoverImageEventCopyWithImpl;
 @override @useResult
 $Res call({
- ImageSource source
+ ImageSource source, int id
 });
 
 
@@ -258,10 +260,11 @@ class _$PickSeriesCoverImageEventCopyWithImpl<$Res>
 
 /// Create a copy of ImagePickerEvent
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? source = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? source = null,Object? id = null,}) {
   return _then(PickSeriesCoverImageEvent(
 null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
-as ImageSource,
+as ImageSource,null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

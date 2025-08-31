@@ -8,7 +8,7 @@ abstract class SeriesListItem with _$SeriesListItem {
     required int id,
     required String title,
     required String type,
-    required String coverImage,
+    String? coverImage,
     required int episodeCount,
     required int minutesPerEpisode,
     required String video,
@@ -17,6 +17,5 @@ abstract class SeriesListItem with _$SeriesListItem {
     required double score,
     required String synopsis,
   }) = _SeriesListItem;
-  factory SeriesListItem.fromJson(Map<String, dynamic> json) =>
-      _$SeriesListItemFromJson(json);
+  factory SeriesListItem.fromJson(Map<String, dynamic> json) => _$SeriesListItemFromJson(json);
 }

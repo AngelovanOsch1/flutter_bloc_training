@@ -5,6 +5,7 @@ import 'package:flutter_bloc_training/blocs/series/series_bloc.dart';
 import 'package:flutter_bloc_training/blocs/series/series_event.dart';
 import 'package:flutter_bloc_training/blocs/series/series_state.dart';
 import 'package:flutter_bloc_training/models/series_list_item.dart';
+import 'package:flutter_bloc_training/repositories/series_image_cover_repository.dart';
 import 'package:flutter_bloc_training/screens/series/series_create.dart';
 import 'package:flutter_bloc_training/screens/series/series_edit.dart';
 
@@ -34,8 +35,16 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
             const Text('Series List'),
             IconButton(
               icon: const Icon(Icons.add, color: Colors.green),
-              onPressed: () async {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const CreateSeriesScreen()));
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => BlocProvider(
+                      create: (_) => ImagePickerBloc(context.read<SeriesCoverImageRepository>()),
+                      child: const CreateSeriesScreen(),
+                    ),
+                  ),
+                );
               },
             ),
           ],
@@ -55,7 +64,14 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
                       itemBuilder: (context, index) {
                         final SeriesListItem series = seriesList[index];
                         return ListTile(
-                          leading: Image.network(series.coverImage, width: 50, height: 50, fit: BoxFit.cover),
+                          leading: series.coverImage != null && series.coverImage!.isNotEmpty
+                              ? Image.network(series.coverImage!, width: 50, height: 50, fit: BoxFit.cover)
+                              : Container(
+                                  width: 50,
+                                  height: 50,
+                                  color: Colors.grey.shade300,
+                                  child: const Icon(Icons.image, color: Colors.white),
+                                ),
                           title: Text(series.title),
                           subtitle: Text('${series.type} • Episodes: ${series.episodeCount}'),
                           trailing: Row(
@@ -72,7 +88,9 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
                                       builder: (_) => MultiBlocProvider(
                                         providers: [
                                           BlocProvider.value(value: context.read<SeriesBloc>()),
-                                          BlocProvider(create: (_) => ImagePickerBloc()),
+                                          BlocProvider(
+                                            create: (_) => ImagePickerBloc(context.read<SeriesCoverImageRepository>()),
+                                          ),
                                         ],
                                         child: EditSeriesScreen(series: series),
                                       ),

@@ -11,7 +11,7 @@ _SeriesListItem _$SeriesListItemFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num).toInt(),
       title: json['title'] as String,
       type: json['type'] as String,
-      coverImage: json['cover_image'] as String,
+      coverImage: json['cover_image'] as String?,
       episodeCount: (json['episode_count'] as num).toInt(),
       minutesPerEpisode: (json['minutes_per_episode'] as num).toInt(),
       video: json['video'] as String,

@@ -83,9 +83,15 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
                             current.maybeWhen(coverImagePicked: (_) => true, orElse: () => false),
                         builder: (context, state) {
                           return state.maybeWhen(
-                            coverImagePicked: (file) => Image.file(file, width: 100, height: 100, fit: BoxFit.cover),
-                            orElse: () =>
-                                Image.network(widget.series.coverImage, width: 100, height: 100, fit: BoxFit.cover),
+                            coverImagePicked: (file) => Image.network(file, width: 100, height: 100, fit: BoxFit.cover),
+                            orElse: () => (widget.series.coverImage != null && widget.series.coverImage!.isNotEmpty)
+                                ? Image.network(widget.series.coverImage!, width: 100, height: 100, fit: BoxFit.cover)
+                                : Container(
+                                    width: 100,
+                                    height: 100,
+                                    color: Colors.grey.shade300,
+                                    child: const Icon(Icons.image, size: 50, color: Colors.white),
+                                  ),
                           );
                         },
                       ),
@@ -103,7 +109,7 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
                         iconSize: 18,
                         onPressed: () {
                           context.read<ImagePickerBloc>().add(
-                            ImagePickerEvent.pickSeriesCoverImage(ImageSource.gallery),
+                            ImagePickerEvent.pickSeriesCoverImage(ImageSource.gallery, widget.series.id),
                           );
                         },
                         icon: const Icon(Icons.create, color: Colors.white),
@@ -113,7 +119,6 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
                 ],
               ),
               const SizedBox(height: 20),
-
               TextField(
                 controller: titleController,
                 decoration: const InputDecoration(labelText: 'Title'),

@@ -125,11 +125,11 @@ return coverImageError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( File image)?  coverImagePicked,TResult Function( String message)?  coverImageError,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( String seriesCoverImage)?  coverImagePicked,TResult Function( String message)?  coverImageError,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case CoverImagePicked() when coverImagePicked != null:
-return coverImagePicked(_that.image);case CoverImageError() when coverImageError != null:
+return coverImagePicked(_that.seriesCoverImage);case CoverImageError() when coverImageError != null:
 return coverImageError(_that.message);case _:
   return orElse();
 
@@ -148,11 +148,11 @@ return coverImageError(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( File image)  coverImagePicked,required TResult Function( String message)  coverImageError,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( String seriesCoverImage)  coverImagePicked,required TResult Function( String message)  coverImageError,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case CoverImagePicked():
-return coverImagePicked(_that.image);case CoverImageError():
+return coverImagePicked(_that.seriesCoverImage);case CoverImageError():
 return coverImageError(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -170,11 +170,11 @@ return coverImageError(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( File image)?  coverImagePicked,TResult? Function( String message)?  coverImageError,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( String seriesCoverImage)?  coverImagePicked,TResult? Function( String message)?  coverImageError,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case CoverImagePicked() when coverImagePicked != null:
-return coverImagePicked(_that.image);case CoverImageError() when coverImageError != null:
+return coverImagePicked(_that.seriesCoverImage);case CoverImageError() when coverImageError != null:
 return coverImageError(_that.message);case _:
   return null;
 
@@ -219,10 +219,10 @@ String toString() {
 
 
 class CoverImagePicked implements ImagePickerState {
-  const CoverImagePicked(this.image);
+  const CoverImagePicked(this.seriesCoverImage);
   
 
- final  File image;
+ final  String seriesCoverImage;
 
 /// Create a copy of ImagePickerState
 /// with the given fields replaced by the non-null parameter values.
@@ -234,16 +234,16 @@ $CoverImagePickedCopyWith<CoverImagePicked> get copyWith => _$CoverImagePickedCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CoverImagePicked&&(identical(other.image, image) || other.image == image));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CoverImagePicked&&(identical(other.seriesCoverImage, seriesCoverImage) || other.seriesCoverImage == seriesCoverImage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,image);
+int get hashCode => Object.hash(runtimeType,seriesCoverImage);
 
 @override
 String toString() {
-  return 'ImagePickerState.coverImagePicked(image: $image)';
+  return 'ImagePickerState.coverImagePicked(seriesCoverImage: $seriesCoverImage)';
 }
 
 
@@ -254,7 +254,7 @@ abstract mixin class $CoverImagePickedCopyWith<$Res> implements $ImagePickerStat
   factory $CoverImagePickedCopyWith(CoverImagePicked value, $Res Function(CoverImagePicked) _then) = _$CoverImagePickedCopyWithImpl;
 @useResult
 $Res call({
- File image
+ String seriesCoverImage
 });
 
 
@@ -271,10 +271,10 @@ class _$CoverImagePickedCopyWithImpl<$Res>
 
 /// Create a copy of ImagePickerState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? image = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? seriesCoverImage = null,}) {
   return _then(CoverImagePicked(
-null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
-as File,
+null == seriesCoverImage ? _self.seriesCoverImage : seriesCoverImage // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

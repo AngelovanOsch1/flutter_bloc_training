@@ -5,5 +5,5 @@ part 'imagepicker_event.freezed.dart';
 
 @freezed
 abstract class ImagePickerEvent with _$ImagePickerEvent {
-  const factory ImagePickerEvent.pickSeriesCoverImage(ImageSource source) = PickSeriesCoverImageEvent;
+  const factory ImagePickerEvent.pickSeriesCoverImage(ImageSource source, int id) = PickSeriesCoverImageEvent;
 }
