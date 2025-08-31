@@ -55,11 +55,13 @@ extension SeriesEventPatterns on SeriesEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( FetchSeriesEvent value)?  fetchSeries,TResult Function( UpdateSeriesEvent value)?  updateSeries,TResult Function( DeleteSeriesEvent value)?  deleteSeries,TResult Function( CreateSeriesEvent value)?  createSeries,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( FetchSeriesEvent value)?  fetchSeries,TResult Function( FetchNextPageEvent value)?  fetchNextPage,TResult Function( FetchPreviousPageEvent value)?  fetchPreviousPage,TResult Function( UpdateSeriesEvent value)?  updateSeries,TResult Function( DeleteSeriesEvent value)?  deleteSeries,TResult Function( CreateSeriesEvent value)?  createSeries,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
-return fetchSeries(_that);case UpdateSeriesEvent() when updateSeries != null:
+return fetchSeries(_that);case FetchNextPageEvent() when fetchNextPage != null:
+return fetchNextPage(_that);case FetchPreviousPageEvent() when fetchPreviousPage != null:
+return fetchPreviousPage(_that);case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that);case DeleteSeriesEvent() when deleteSeries != null:
 return deleteSeries(_that);case CreateSeriesEvent() when createSeries != null:
 return createSeries(_that);case _:
@@ -80,11 +82,13 @@ return createSeries(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( FetchSeriesEvent value)  fetchSeries,required TResult Function( UpdateSeriesEvent value)  updateSeries,required TResult Function( DeleteSeriesEvent value)  deleteSeries,required TResult Function( CreateSeriesEvent value)  createSeries,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( FetchSeriesEvent value)  fetchSeries,required TResult Function( FetchNextPageEvent value)  fetchNextPage,required TResult Function( FetchPreviousPageEvent value)  fetchPreviousPage,required TResult Function( UpdateSeriesEvent value)  updateSeries,required TResult Function( DeleteSeriesEvent value)  deleteSeries,required TResult Function( CreateSeriesEvent value)  createSeries,}){
 final _that = this;
 switch (_that) {
 case FetchSeriesEvent():
-return fetchSeries(_that);case UpdateSeriesEvent():
+return fetchSeries(_that);case FetchNextPageEvent():
+return fetchNextPage(_that);case FetchPreviousPageEvent():
+return fetchPreviousPage(_that);case UpdateSeriesEvent():
 return updateSeries(_that);case DeleteSeriesEvent():
 return deleteSeries(_that);case CreateSeriesEvent():
 return createSeries(_that);case _:
@@ -104,11 +108,13 @@ return createSeries(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( FetchSeriesEvent value)?  fetchSeries,TResult? Function( UpdateSeriesEvent value)?  updateSeries,TResult? Function( DeleteSeriesEvent value)?  deleteSeries,TResult? Function( CreateSeriesEvent value)?  createSeries,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( FetchSeriesEvent value)?  fetchSeries,TResult? Function( FetchNextPageEvent value)?  fetchNextPage,TResult? Function( FetchPreviousPageEvent value)?  fetchPreviousPage,TResult? Function( UpdateSeriesEvent value)?  updateSeries,TResult? Function( DeleteSeriesEvent value)?  deleteSeries,TResult? Function( CreateSeriesEvent value)?  createSeries,}){
 final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
-return fetchSeries(_that);case UpdateSeriesEvent() when updateSeries != null:
+return fetchSeries(_that);case FetchNextPageEvent() when fetchNextPage != null:
+return fetchNextPage(_that);case FetchPreviousPageEvent() when fetchPreviousPage != null:
+return fetchPreviousPage(_that);case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that);case DeleteSeriesEvent() when deleteSeries != null:
 return deleteSeries(_that);case CreateSeriesEvent() when createSeries != null:
 return createSeries(_that);case _:
@@ -128,10 +134,12 @@ return createSeries(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int page)?  fetchSeries,TResult Function( SeriesListItem series)?  updateSeries,TResult Function( int seriesId)?  deleteSeries,TResult Function( SeriesListItem series)?  createSeries,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchSeries,TResult Function()?  fetchNextPage,TResult Function()?  fetchPreviousPage,TResult Function( SeriesListItem series)?  updateSeries,TResult Function( int seriesId)?  deleteSeries,TResult Function( SeriesListItem series)?  createSeries,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
-return fetchSeries(_that.page);case UpdateSeriesEvent() when updateSeries != null:
+return fetchSeries();case FetchNextPageEvent() when fetchNextPage != null:
+return fetchNextPage();case FetchPreviousPageEvent() when fetchPreviousPage != null:
+return fetchPreviousPage();case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that.series);case DeleteSeriesEvent() when deleteSeries != null:
 return deleteSeries(_that.seriesId);case CreateSeriesEvent() when createSeries != null:
 return createSeries(_that.series);case _:
@@ -152,10 +160,12 @@ return createSeries(_that.series);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int page)  fetchSeries,required TResult Function( SeriesListItem series)  updateSeries,required TResult Function( int seriesId)  deleteSeries,required TResult Function( SeriesListItem series)  createSeries,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchSeries,required TResult Function()  fetchNextPage,required TResult Function()  fetchPreviousPage,required TResult Function( SeriesListItem series)  updateSeries,required TResult Function( int seriesId)  deleteSeries,required TResult Function( SeriesListItem series)  createSeries,}) {final _that = this;
 switch (_that) {
 case FetchSeriesEvent():
-return fetchSeries(_that.page);case UpdateSeriesEvent():
+return fetchSeries();case FetchNextPageEvent():
+return fetchNextPage();case FetchPreviousPageEvent():
+return fetchPreviousPage();case UpdateSeriesEvent():
 return updateSeries(_that.series);case DeleteSeriesEvent():
 return deleteSeries(_that.seriesId);case CreateSeriesEvent():
 return createSeries(_that.series);case _:
@@ -175,10 +185,12 @@ return createSeries(_that.series);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int page)?  fetchSeries,TResult? Function( SeriesListItem series)?  updateSeries,TResult? Function( int seriesId)?  deleteSeries,TResult? Function( SeriesListItem series)?  createSeries,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchSeries,TResult? Function()?  fetchNextPage,TResult? Function()?  fetchPreviousPage,TResult? Function( SeriesListItem series)?  updateSeries,TResult? Function( int seriesId)?  deleteSeries,TResult? Function( SeriesListItem series)?  createSeries,}) {final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
-return fetchSeries(_that.page);case UpdateSeriesEvent() when updateSeries != null:
+return fetchSeries();case FetchNextPageEvent() when fetchNextPage != null:
+return fetchNextPage();case FetchPreviousPageEvent() when fetchPreviousPage != null:
+return fetchPreviousPage();case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that.series);case DeleteSeriesEvent() when deleteSeries != null:
 return deleteSeries(_that.seriesId);case CreateSeriesEvent() when createSeries != null:
 return createSeries(_that.series);case _:
@@ -193,67 +205,97 @@ return createSeries(_that.series);case _:
 
 
 class FetchSeriesEvent implements SeriesEvent {
-  const FetchSeriesEvent({this.page = 1});
+  const FetchSeriesEvent();
   
 
-@JsonKey() final  int page;
 
-/// Create a copy of SeriesEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$FetchSeriesEventCopyWith<FetchSeriesEvent> get copyWith => _$FetchSeriesEventCopyWithImpl<FetchSeriesEvent>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FetchSeriesEvent&&(identical(other.page, page) || other.page == page));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FetchSeriesEvent);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,page);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SeriesEvent.fetchSeries(page: $page)';
+  return 'SeriesEvent.fetchSeries()';
 }
 
 
 }
+
+
+
 
 /// @nodoc
-abstract mixin class $FetchSeriesEventCopyWith<$Res> implements $SeriesEventCopyWith<$Res> {
-  factory $FetchSeriesEventCopyWith(FetchSeriesEvent value, $Res Function(FetchSeriesEvent) _then) = _$FetchSeriesEventCopyWithImpl;
-@useResult
-$Res call({
- int page
-});
 
 
+class FetchNextPageEvent implements SeriesEvent {
+  const FetchNextPageEvent();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FetchNextPageEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SeriesEvent.fetchNextPage()';
+}
 
 
 }
+
+
+
+
 /// @nodoc
-class _$FetchSeriesEventCopyWithImpl<$Res>
-    implements $FetchSeriesEventCopyWith<$Res> {
-  _$FetchSeriesEventCopyWithImpl(this._self, this._then);
 
-  final FetchSeriesEvent _self;
-  final $Res Function(FetchSeriesEvent) _then;
 
-/// Create a copy of SeriesEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? page = null,}) {
-  return _then(FetchSeriesEvent(
-page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
-as int,
-  ));
+class FetchPreviousPageEvent implements SeriesEvent {
+  const FetchPreviousPageEvent();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FetchPreviousPageEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SeriesEvent.fetchPreviousPage()';
 }
 
 
 }
+
+
+
 
 /// @nodoc
 

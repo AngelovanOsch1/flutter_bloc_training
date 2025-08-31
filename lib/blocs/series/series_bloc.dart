@@ -6,18 +6,43 @@ import 'package:flutter_bloc_training/repositories/series_repository.dart';
 
 class SeriesBloc extends Bloc<SeriesEvent, SeriesState> {
   final SeriesRepository repository;
+  int currentPage = 1;
 
   SeriesBloc(this.repository) : super(const SeriesState.initial()) {
     on<FetchSeriesEvent>(_onFetchSeries);
     on<UpdateSeriesEvent>(_onUpdateSeries);
     on<DeleteSeriesEvent>(_onDeleteSeries);
     on<CreateSeriesEvent>(_onCreateSeries);
+    on<FetchNextPageEvent>(_onFetchNextPage);
+    on<FetchPreviousPageEvent>(_onFetchPreviousPage);
   }
 
   Future<void> _onFetchSeries(FetchSeriesEvent event, Emitter<SeriesState> emit) async {
     emit(const SeriesState.loading());
     try {
-      final seriesList = await repository.fetchSeries(page: event.page);
+      final seriesList = await repository.fetchSeries(currentPage);
+      emit(SeriesState.loaded(seriesList));
+    } catch (e) {
+      emit(SeriesState.error(e.toString()));
+    }
+  }
+
+  Future<void> _onFetchNextPage(FetchNextPageEvent event, Emitter<SeriesState> emit) async {
+    emit(const SeriesState.loading());
+    try {
+      currentPage += 1;
+      final seriesList = await repository.fetchSeries(currentPage);
+      emit(SeriesState.loaded(seriesList));
+    } catch (e) {
+      emit(SeriesState.error(e.toString()));
+    }
+  }
+
+  Future<void> _onFetchPreviousPage(FetchPreviousPageEvent event, Emitter<SeriesState> emit) async {
+    emit(const SeriesState.loading());
+    try {
+      currentPage -= 1;
+      final seriesList = await repository.fetchSeries(currentPage);
       emit(SeriesState.loaded(seriesList));
     } catch (e) {
       emit(SeriesState.error(e.toString()));

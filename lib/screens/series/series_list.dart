@@ -17,12 +17,10 @@ class SeriesListScreen extends StatefulWidget {
 }
 
 class _SeriesListScreenState extends State<SeriesListScreen> {
-  int currentPage = 1;
-
   @override
   void initState() {
     super.initState();
-    context.read<SeriesBloc>().add(SeriesEvent.fetchSeries(page: currentPage));
+    context.read<SeriesBloc>().add(SeriesEvent.fetchSeries());
   }
 
   @override
@@ -102,7 +100,6 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
                                 icon: const Icon(Icons.delete, color: Colors.red),
                                 onPressed: () async {
                                   context.read<SeriesBloc>().add(SeriesEvent.deleteSeries(series.id));
-                                  context.read<SeriesBloc>().add(SeriesEvent.fetchSeries(page: currentPage));
                                 },
                               ),
                             ],
@@ -123,18 +120,14 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
-                    onPressed: currentPage > 1
-                        ? () {
-                            setState(() => currentPage--);
-                            context.read<SeriesBloc>().add(SeriesEvent.fetchSeries(page: currentPage));
-                          }
-                        : null,
+                    onPressed: () {
+                      context.read<SeriesBloc>().add(SeriesEvent.fetchPreviousPage());
+                    },
                     child: const Text('Previous'),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      setState(() => currentPage++);
-                      context.read<SeriesBloc>().add(SeriesEvent.fetchSeries(page: currentPage));
+                      context.read<SeriesBloc>().add(SeriesEvent.fetchNextPage());
                     },
                     child: const Text('Next'),
                   ),
