@@ -62,8 +62,19 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
                       itemBuilder: (context, index) {
                         final SeriesListItem series = seriesList[index];
                         return ListTile(
-                          leading: series.coverImage != null && series.coverImage!.isNotEmpty
-                              ? Image.network(series.coverImage!, width: 50, height: 50, fit: BoxFit.cover)
+                          leading: (series.coverImage != null && series.coverImage!.isNotEmpty)
+                              ? Image.network(
+                                  series.coverImage!,
+                                  width: 50,
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) => Container(
+                                    width: 50,
+                                    height: 50,
+                                    color: Colors.grey.shade300,
+                                    child: const Icon(Icons.broken_image, color: Colors.white),
+                                  ),
+                                )
                               : Container(
                                   width: 50,
                                   height: 50,

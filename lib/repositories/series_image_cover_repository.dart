@@ -10,15 +10,14 @@ class SeriesCoverImageRepository {
     final request = http.MultipartRequest('POST', Uri.parse('$baseUrl/series/cover-image/$id'));
 
     request.headers.addAll({'Authorization': 'secret123', 'Accept': 'application/json'});
-
     request.files.add(await http.MultipartFile.fromPath('cover_image', imageFile.path));
 
     final streamedResponse = await request.send();
     final response = await http.Response.fromStream(streamedResponse);
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
+
       return jsonResponse['data']['cover_image'];
     } else {
       throw Exception('Failed to upload series cover image');

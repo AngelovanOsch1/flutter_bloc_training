@@ -139,6 +139,7 @@ class _CreateSeriesScreenState extends State<CreateSeriesScreen> {
         synopsis: synopsisController.text,
       );
       context.read<SeriesBloc>().add(SeriesEvent.createSeries(series));
+      Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please fill all required fields.")));
     }
