@@ -62,7 +62,7 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
   Widget build(BuildContext context) {
     return BlocListener<ImagePickerBloc, ImagePickerState>(
       listener: (context, state) {
-        state.maybeWhen(coverImageError: showCoverImageError, orElse: () {});
+        state.maybeWhen(coverImageError: _onError, orElse: () {});
       },
       child: Scaffold(
         appBar: AppBar(title: const Text('Edit Series')),
@@ -214,7 +214,7 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
     );
   }
 
-  void showCoverImageError(String message) {
+  void _onError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 

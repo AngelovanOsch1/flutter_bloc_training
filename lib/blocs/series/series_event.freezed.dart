@@ -55,7 +55,7 @@ extension SeriesEventPatterns on SeriesEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( FetchSeriesEvent value)?  fetchSeries,TResult Function( FetchNextPageEvent value)?  fetchNextPage,TResult Function( FetchPreviousPageEvent value)?  fetchPreviousPage,TResult Function( UpdateSeriesEvent value)?  updateSeries,TResult Function( DeleteSeriesEvent value)?  deleteSeries,TResult Function( CreateSeriesEvent value)?  createSeries,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( FetchSeriesEvent value)?  fetchSeries,TResult Function( FetchNextPageEvent value)?  fetchNextPage,TResult Function( FetchPreviousPageEvent value)?  fetchPreviousPage,TResult Function( UpdateSeriesEvent value)?  updateSeries,TResult Function( DeleteSeriesEvent value)?  deleteSeries,TResult Function( CreateSeriesEvent value)?  createSeries,TResult Function( ShowSeriesEvent value)?  showSeries,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
@@ -64,7 +64,8 @@ return fetchNextPage(_that);case FetchPreviousPageEvent() when fetchPreviousPage
 return fetchPreviousPage(_that);case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that);case DeleteSeriesEvent() when deleteSeries != null:
 return deleteSeries(_that);case CreateSeriesEvent() when createSeries != null:
-return createSeries(_that);case _:
+return createSeries(_that);case ShowSeriesEvent() when showSeries != null:
+return showSeries(_that);case _:
   return orElse();
 
 }
@@ -82,7 +83,7 @@ return createSeries(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( FetchSeriesEvent value)  fetchSeries,required TResult Function( FetchNextPageEvent value)  fetchNextPage,required TResult Function( FetchPreviousPageEvent value)  fetchPreviousPage,required TResult Function( UpdateSeriesEvent value)  updateSeries,required TResult Function( DeleteSeriesEvent value)  deleteSeries,required TResult Function( CreateSeriesEvent value)  createSeries,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( FetchSeriesEvent value)  fetchSeries,required TResult Function( FetchNextPageEvent value)  fetchNextPage,required TResult Function( FetchPreviousPageEvent value)  fetchPreviousPage,required TResult Function( UpdateSeriesEvent value)  updateSeries,required TResult Function( DeleteSeriesEvent value)  deleteSeries,required TResult Function( CreateSeriesEvent value)  createSeries,required TResult Function( ShowSeriesEvent value)  showSeries,}){
 final _that = this;
 switch (_that) {
 case FetchSeriesEvent():
@@ -91,7 +92,8 @@ return fetchNextPage(_that);case FetchPreviousPageEvent():
 return fetchPreviousPage(_that);case UpdateSeriesEvent():
 return updateSeries(_that);case DeleteSeriesEvent():
 return deleteSeries(_that);case CreateSeriesEvent():
-return createSeries(_that);case _:
+return createSeries(_that);case ShowSeriesEvent():
+return showSeries(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -108,7 +110,7 @@ return createSeries(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( FetchSeriesEvent value)?  fetchSeries,TResult? Function( FetchNextPageEvent value)?  fetchNextPage,TResult? Function( FetchPreviousPageEvent value)?  fetchPreviousPage,TResult? Function( UpdateSeriesEvent value)?  updateSeries,TResult? Function( DeleteSeriesEvent value)?  deleteSeries,TResult? Function( CreateSeriesEvent value)?  createSeries,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( FetchSeriesEvent value)?  fetchSeries,TResult? Function( FetchNextPageEvent value)?  fetchNextPage,TResult? Function( FetchPreviousPageEvent value)?  fetchPreviousPage,TResult? Function( UpdateSeriesEvent value)?  updateSeries,TResult? Function( DeleteSeriesEvent value)?  deleteSeries,TResult? Function( CreateSeriesEvent value)?  createSeries,TResult? Function( ShowSeriesEvent value)?  showSeries,}){
 final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
@@ -117,7 +119,8 @@ return fetchNextPage(_that);case FetchPreviousPageEvent() when fetchPreviousPage
 return fetchPreviousPage(_that);case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that);case DeleteSeriesEvent() when deleteSeries != null:
 return deleteSeries(_that);case CreateSeriesEvent() when createSeries != null:
-return createSeries(_that);case _:
+return createSeries(_that);case ShowSeriesEvent() when showSeries != null:
+return showSeries(_that);case _:
   return null;
 
 }
@@ -134,7 +137,7 @@ return createSeries(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchSeries,TResult Function()?  fetchNextPage,TResult Function()?  fetchPreviousPage,TResult Function( SeriesListItem series)?  updateSeries,TResult Function( int seriesId)?  deleteSeries,TResult Function( SeriesListItem series)?  createSeries,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchSeries,TResult Function()?  fetchNextPage,TResult Function()?  fetchPreviousPage,TResult Function( SeriesListItem series)?  updateSeries,TResult Function( int seriesId)?  deleteSeries,TResult Function( SeriesListItem series)?  createSeries,TResult Function( int id)?  showSeries,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
 return fetchSeries();case FetchNextPageEvent() when fetchNextPage != null:
@@ -142,7 +145,8 @@ return fetchNextPage();case FetchPreviousPageEvent() when fetchPreviousPage != n
 return fetchPreviousPage();case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that.series);case DeleteSeriesEvent() when deleteSeries != null:
 return deleteSeries(_that.seriesId);case CreateSeriesEvent() when createSeries != null:
-return createSeries(_that.series);case _:
+return createSeries(_that.series);case ShowSeriesEvent() when showSeries != null:
+return showSeries(_that.id);case _:
   return orElse();
 
 }
@@ -160,7 +164,7 @@ return createSeries(_that.series);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchSeries,required TResult Function()  fetchNextPage,required TResult Function()  fetchPreviousPage,required TResult Function( SeriesListItem series)  updateSeries,required TResult Function( int seriesId)  deleteSeries,required TResult Function( SeriesListItem series)  createSeries,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchSeries,required TResult Function()  fetchNextPage,required TResult Function()  fetchPreviousPage,required TResult Function( SeriesListItem series)  updateSeries,required TResult Function( int seriesId)  deleteSeries,required TResult Function( SeriesListItem series)  createSeries,required TResult Function( int id)  showSeries,}) {final _that = this;
 switch (_that) {
 case FetchSeriesEvent():
 return fetchSeries();case FetchNextPageEvent():
@@ -168,7 +172,8 @@ return fetchNextPage();case FetchPreviousPageEvent():
 return fetchPreviousPage();case UpdateSeriesEvent():
 return updateSeries(_that.series);case DeleteSeriesEvent():
 return deleteSeries(_that.seriesId);case CreateSeriesEvent():
-return createSeries(_that.series);case _:
+return createSeries(_that.series);case ShowSeriesEvent():
+return showSeries(_that.id);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -185,7 +190,7 @@ return createSeries(_that.series);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchSeries,TResult? Function()?  fetchNextPage,TResult? Function()?  fetchPreviousPage,TResult? Function( SeriesListItem series)?  updateSeries,TResult? Function( int seriesId)?  deleteSeries,TResult? Function( SeriesListItem series)?  createSeries,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchSeries,TResult? Function()?  fetchNextPage,TResult? Function()?  fetchPreviousPage,TResult? Function( SeriesListItem series)?  updateSeries,TResult? Function( int seriesId)?  deleteSeries,TResult? Function( SeriesListItem series)?  createSeries,TResult? Function( int id)?  showSeries,}) {final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
 return fetchSeries();case FetchNextPageEvent() when fetchNextPage != null:
@@ -193,7 +198,8 @@ return fetchNextPage();case FetchPreviousPageEvent() when fetchPreviousPage != n
 return fetchPreviousPage();case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that.series);case DeleteSeriesEvent() when deleteSeries != null:
 return deleteSeries(_that.seriesId);case CreateSeriesEvent() when createSeries != null:
-return createSeries(_that.series);case _:
+return createSeries(_that.series);case ShowSeriesEvent() when showSeries != null:
+return showSeries(_that.id);case _:
   return null;
 
 }
@@ -511,6 +517,72 @@ $SeriesListItemCopyWith<$Res> get series {
     return _then(_self.copyWith(series: value));
   });
 }
+}
+
+/// @nodoc
+
+
+class ShowSeriesEvent implements SeriesEvent {
+  const ShowSeriesEvent(this.id);
+  
+
+ final  int id;
+
+/// Create a copy of SeriesEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ShowSeriesEventCopyWith<ShowSeriesEvent> get copyWith => _$ShowSeriesEventCopyWithImpl<ShowSeriesEvent>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShowSeriesEvent&&(identical(other.id, id) || other.id == id));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,id);
+
+@override
+String toString() {
+  return 'SeriesEvent.showSeries(id: $id)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ShowSeriesEventCopyWith<$Res> implements $SeriesEventCopyWith<$Res> {
+  factory $ShowSeriesEventCopyWith(ShowSeriesEvent value, $Res Function(ShowSeriesEvent) _then) = _$ShowSeriesEventCopyWithImpl;
+@useResult
+$Res call({
+ int id
+});
+
+
+
+
+}
+/// @nodoc
+class _$ShowSeriesEventCopyWithImpl<$Res>
+    implements $ShowSeriesEventCopyWith<$Res> {
+  _$ShowSeriesEventCopyWithImpl(this._self, this._then);
+
+  final ShowSeriesEvent _self;
+  final $Res Function(ShowSeriesEvent) _then;
+
+/// Create a copy of SeriesEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? id = null,}) {
+  return _then(ShowSeriesEvent(
+null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
 }
 
 // dart format on

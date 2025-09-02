@@ -48,10 +48,7 @@ class _CreateSeriesScreenState extends State<CreateSeriesScreen> {
       create: (context) => ImagePickerBloc(context.read<SeriesCoverImageRepository>()),
       child: BlocListener<ImagePickerBloc, ImagePickerState>(
         listener: (context, state) {
-          state.maybeWhen(
-            coverImageError: (msg) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg))),
-            orElse: () {},
-          );
+          state.maybeWhen(coverImageError: _onError, orElse: () {});
         },
         child: Scaffold(
           appBar: AppBar(title: const Text('Create Series')),
@@ -122,6 +119,10 @@ class _CreateSeriesScreenState extends State<CreateSeriesScreen> {
         ),
       ),
     );
+  }
+
+  _onError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   void _submitForm() {

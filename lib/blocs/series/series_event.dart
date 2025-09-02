@@ -11,4 +11,5 @@ abstract class SeriesEvent with _$SeriesEvent {
   const factory SeriesEvent.updateSeries(SeriesListItem series) = UpdateSeriesEvent;
   const factory SeriesEvent.deleteSeries(int seriesId) = DeleteSeriesEvent;
   const factory SeriesEvent.createSeries(SeriesListItem series) = CreateSeriesEvent;
+  const factory SeriesEvent.showSeries(int id) = ShowSeriesEvent;
 }

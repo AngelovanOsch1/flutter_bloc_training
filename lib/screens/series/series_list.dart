@@ -25,38 +25,39 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text('Series List'),
-            IconButton(
-              icon: const Icon(Icons.add, color: Colors.green),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => BlocProvider(
-                      create: (_) => ImagePickerBloc(context.read<SeriesCoverImageRepository>()),
-                      child: const CreateSeriesScreen(),
-                    ),
-                  ),
-                );
-              },
+    return BlocBuilder<SeriesBloc, SeriesState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Series List'),
+                IconButton(
+                  icon: const Icon(Icons.add, color: Colors.green),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => BlocProvider(
+                          create: (_) => ImagePickerBloc(context.read<SeriesCoverImageRepository>()),
+                          child: const CreateSeriesScreen(),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: BlocBuilder<SeriesBloc, SeriesState>(
-                builder: (context, state) {
-                  return state.when(
+          ),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: state.when(
                     initial: () => const Center(child: Text('Initializing...')),
                     loading: () => const Center(child: CircularProgressIndicator()),
+                    error: (message) => Center(child: Text(message)),
                     loaded: (seriesList) => ListView.builder(
                       itemCount: seriesList.length,
                       itemBuilder: (context, index) {
@@ -90,17 +91,12 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
                               const SizedBox(width: 10),
                               IconButton(
                                 icon: const Icon(Icons.edit, color: Colors.blue),
-                                onPressed: () async {
+                                onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => MultiBlocProvider(
-                                        providers: [
-                                          BlocProvider.value(value: context.read<SeriesBloc>()),
-                                          BlocProvider(
-                                            create: (_) => ImagePickerBloc(context.read<SeriesCoverImageRepository>()),
-                                          ),
-                                        ],
+                                      builder: (_) => BlocProvider(
+                                        create: (_) => ImagePickerBloc(context.read<SeriesCoverImageRepository>()),
                                         child: EditSeriesScreen(series: series),
                                       ),
                                     ),
@@ -109,7 +105,7 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
                               ),
                               IconButton(
                                 icon: const Icon(Icons.delete, color: Colors.red),
-                                onPressed: () async {
+                                onPressed: () {
                                   context.read<SeriesBloc>().add(SeriesEvent.deleteSeries(series.id));
                                 },
                               ),
@@ -118,36 +114,33 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
                         );
                       },
                     ),
-                    error: (message) => Center(
-                      child: Text('Error: $message', style: const TextStyle(color: Colors.red)),
-                    ),
-                  );
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<SeriesBloc>().add(SeriesEvent.fetchPreviousPage());
-                    },
-                    child: const Text('Previous'),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<SeriesBloc>().add(SeriesEvent.fetchNextPage());
-                    },
-                    child: const Text('Next'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<SeriesBloc>().add(SeriesEvent.fetchPreviousPage());
+                        },
+                        child: const Text('Previous'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<SeriesBloc>().add(SeriesEvent.fetchNextPage());
+                        },
+                        child: const Text('Next'),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

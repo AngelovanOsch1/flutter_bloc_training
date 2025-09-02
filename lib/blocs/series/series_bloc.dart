@@ -15,6 +15,7 @@ class SeriesBloc extends Bloc<SeriesEvent, SeriesState> {
     on<CreateSeriesEvent>(_onCreateSeries);
     on<FetchNextPageEvent>(_onFetchNextPage);
     on<FetchPreviousPageEvent>(_onFetchPreviousPage);
+    on<ShowSeriesEvent>(_onShowSeries);
   }
 
   Future<void> _onFetchSeries(FetchSeriesEvent event, Emitter<SeriesState> emit) async {
@@ -51,14 +52,15 @@ class SeriesBloc extends Bloc<SeriesEvent, SeriesState> {
 
   Future<void> _onUpdateSeries(UpdateSeriesEvent event, Emitter<SeriesState> emit) async {
     try {
-      await repository.updateSeries(event.series);
+      final updatedSeries = await repository.updateSeries(event.series);
+
       state.maybeWhen(
         loaded: (list) {
-          final updatedList = list.map((s) => s.id == event.series.id ? event.series : s).toList();
+          final updatedList = list.map((s) => s.id == updatedSeries.id ? updatedSeries : s).toList();
           emit(SeriesState.loaded(updatedList));
         },
         orElse: () {
-          emit(SeriesState.loaded([event.series]));
+          emit(SeriesState.loaded([updatedSeries]));
         },
       );
     } catch (e) {
@@ -82,7 +84,6 @@ class SeriesBloc extends Bloc<SeriesEvent, SeriesState> {
   }
 
   Future<void> _onCreateSeries(CreateSeriesEvent event, Emitter<SeriesState> emit) async {
-    emit(const SeriesState.loading());
     try {
       final newSeries = await repository.createSeries(event.series);
       state.maybeWhen(
@@ -94,6 +95,14 @@ class SeriesBloc extends Bloc<SeriesEvent, SeriesState> {
           emit(SeriesState.loaded([newSeries]));
         },
       );
+    } catch (e) {
+      emit(SeriesState.error(e.toString()));
+    }
+  }
+
+  Future<void> _onShowSeries(ShowSeriesEvent event, Emitter<SeriesState> emit) async {
+    try {
+      final series = await repository.showSeries(event.id);
     } catch (e) {
       emit(SeriesState.error(e.toString()));
     }
