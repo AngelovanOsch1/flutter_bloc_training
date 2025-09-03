@@ -12,11 +12,17 @@ part of 'series_event.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$SeriesEvent {
+mixin _$SeriesEvent implements DiagnosticableTreeMixin {
 
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SeriesEvent'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -28,7 +34,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SeriesEvent()';
 }
 
@@ -55,7 +61,7 @@ extension SeriesEventPatterns on SeriesEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( FetchSeriesEvent value)?  fetchSeries,TResult Function( FetchNextPageEvent value)?  fetchNextPage,TResult Function( FetchPreviousPageEvent value)?  fetchPreviousPage,TResult Function( UpdateSeriesEvent value)?  updateSeries,TResult Function( DeleteSeriesEvent value)?  deleteSeries,TResult Function( CreateSeriesEvent value)?  createSeries,TResult Function( ShowSeriesEvent value)?  showSeries,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( FetchSeriesEvent value)?  fetchSeries,TResult Function( FetchNextPageEvent value)?  fetchNextPage,TResult Function( FetchPreviousPageEvent value)?  fetchPreviousPage,TResult Function( UpdateSeriesEvent value)?  updateSeries,TResult Function( DeleteSeriesEvent value)?  deleteSeries,TResult Function( ShowSeriesEvent value)?  showSeries,TResult Function( CreateSeriesUpdate value)?  createSeriesUpdate,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
@@ -63,9 +69,9 @@ return fetchSeries(_that);case FetchNextPageEvent() when fetchNextPage != null:
 return fetchNextPage(_that);case FetchPreviousPageEvent() when fetchPreviousPage != null:
 return fetchPreviousPage(_that);case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that);case DeleteSeriesEvent() when deleteSeries != null:
-return deleteSeries(_that);case CreateSeriesEvent() when createSeries != null:
-return createSeries(_that);case ShowSeriesEvent() when showSeries != null:
-return showSeries(_that);case _:
+return deleteSeries(_that);case ShowSeriesEvent() when showSeries != null:
+return showSeries(_that);case CreateSeriesUpdate() when createSeriesUpdate != null:
+return createSeriesUpdate(_that);case _:
   return orElse();
 
 }
@@ -83,7 +89,7 @@ return showSeries(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( FetchSeriesEvent value)  fetchSeries,required TResult Function( FetchNextPageEvent value)  fetchNextPage,required TResult Function( FetchPreviousPageEvent value)  fetchPreviousPage,required TResult Function( UpdateSeriesEvent value)  updateSeries,required TResult Function( DeleteSeriesEvent value)  deleteSeries,required TResult Function( CreateSeriesEvent value)  createSeries,required TResult Function( ShowSeriesEvent value)  showSeries,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( FetchSeriesEvent value)  fetchSeries,required TResult Function( FetchNextPageEvent value)  fetchNextPage,required TResult Function( FetchPreviousPageEvent value)  fetchPreviousPage,required TResult Function( UpdateSeriesEvent value)  updateSeries,required TResult Function( DeleteSeriesEvent value)  deleteSeries,required TResult Function( ShowSeriesEvent value)  showSeries,required TResult Function( CreateSeriesUpdate value)  createSeriesUpdate,}){
 final _that = this;
 switch (_that) {
 case FetchSeriesEvent():
@@ -91,9 +97,9 @@ return fetchSeries(_that);case FetchNextPageEvent():
 return fetchNextPage(_that);case FetchPreviousPageEvent():
 return fetchPreviousPage(_that);case UpdateSeriesEvent():
 return updateSeries(_that);case DeleteSeriesEvent():
-return deleteSeries(_that);case CreateSeriesEvent():
-return createSeries(_that);case ShowSeriesEvent():
-return showSeries(_that);case _:
+return deleteSeries(_that);case ShowSeriesEvent():
+return showSeries(_that);case CreateSeriesUpdate():
+return createSeriesUpdate(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -110,7 +116,7 @@ return showSeries(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( FetchSeriesEvent value)?  fetchSeries,TResult? Function( FetchNextPageEvent value)?  fetchNextPage,TResult? Function( FetchPreviousPageEvent value)?  fetchPreviousPage,TResult? Function( UpdateSeriesEvent value)?  updateSeries,TResult? Function( DeleteSeriesEvent value)?  deleteSeries,TResult? Function( CreateSeriesEvent value)?  createSeries,TResult? Function( ShowSeriesEvent value)?  showSeries,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( FetchSeriesEvent value)?  fetchSeries,TResult? Function( FetchNextPageEvent value)?  fetchNextPage,TResult? Function( FetchPreviousPageEvent value)?  fetchPreviousPage,TResult? Function( UpdateSeriesEvent value)?  updateSeries,TResult? Function( DeleteSeriesEvent value)?  deleteSeries,TResult? Function( ShowSeriesEvent value)?  showSeries,TResult? Function( CreateSeriesUpdate value)?  createSeriesUpdate,}){
 final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
@@ -118,9 +124,9 @@ return fetchSeries(_that);case FetchNextPageEvent() when fetchNextPage != null:
 return fetchNextPage(_that);case FetchPreviousPageEvent() when fetchPreviousPage != null:
 return fetchPreviousPage(_that);case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that);case DeleteSeriesEvent() when deleteSeries != null:
-return deleteSeries(_that);case CreateSeriesEvent() when createSeries != null:
-return createSeries(_that);case ShowSeriesEvent() when showSeries != null:
-return showSeries(_that);case _:
+return deleteSeries(_that);case ShowSeriesEvent() when showSeries != null:
+return showSeries(_that);case CreateSeriesUpdate() when createSeriesUpdate != null:
+return createSeriesUpdate(_that);case _:
   return null;
 
 }
@@ -137,16 +143,16 @@ return showSeries(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchSeries,TResult Function()?  fetchNextPage,TResult Function()?  fetchPreviousPage,TResult Function( SeriesListItem series)?  updateSeries,TResult Function( int seriesId)?  deleteSeries,TResult Function( SeriesListItem series)?  createSeries,TResult Function( int id)?  showSeries,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchSeries,TResult Function()?  fetchNextPage,TResult Function()?  fetchPreviousPage,TResult Function( SeriesListItem series)?  updateSeries,TResult Function( int seriesId)?  deleteSeries,TResult Function( int id)?  showSeries,TResult Function( SeriesListItem newSeries)?  createSeriesUpdate,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
 return fetchSeries();case FetchNextPageEvent() when fetchNextPage != null:
 return fetchNextPage();case FetchPreviousPageEvent() when fetchPreviousPage != null:
 return fetchPreviousPage();case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that.series);case DeleteSeriesEvent() when deleteSeries != null:
-return deleteSeries(_that.seriesId);case CreateSeriesEvent() when createSeries != null:
-return createSeries(_that.series);case ShowSeriesEvent() when showSeries != null:
-return showSeries(_that.id);case _:
+return deleteSeries(_that.seriesId);case ShowSeriesEvent() when showSeries != null:
+return showSeries(_that.id);case CreateSeriesUpdate() when createSeriesUpdate != null:
+return createSeriesUpdate(_that.newSeries);case _:
   return orElse();
 
 }
@@ -164,16 +170,16 @@ return showSeries(_that.id);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchSeries,required TResult Function()  fetchNextPage,required TResult Function()  fetchPreviousPage,required TResult Function( SeriesListItem series)  updateSeries,required TResult Function( int seriesId)  deleteSeries,required TResult Function( SeriesListItem series)  createSeries,required TResult Function( int id)  showSeries,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchSeries,required TResult Function()  fetchNextPage,required TResult Function()  fetchPreviousPage,required TResult Function( SeriesListItem series)  updateSeries,required TResult Function( int seriesId)  deleteSeries,required TResult Function( int id)  showSeries,required TResult Function( SeriesListItem newSeries)  createSeriesUpdate,}) {final _that = this;
 switch (_that) {
 case FetchSeriesEvent():
 return fetchSeries();case FetchNextPageEvent():
 return fetchNextPage();case FetchPreviousPageEvent():
 return fetchPreviousPage();case UpdateSeriesEvent():
 return updateSeries(_that.series);case DeleteSeriesEvent():
-return deleteSeries(_that.seriesId);case CreateSeriesEvent():
-return createSeries(_that.series);case ShowSeriesEvent():
-return showSeries(_that.id);case _:
+return deleteSeries(_that.seriesId);case ShowSeriesEvent():
+return showSeries(_that.id);case CreateSeriesUpdate():
+return createSeriesUpdate(_that.newSeries);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -190,16 +196,16 @@ return showSeries(_that.id);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchSeries,TResult? Function()?  fetchNextPage,TResult? Function()?  fetchPreviousPage,TResult? Function( SeriesListItem series)?  updateSeries,TResult? Function( int seriesId)?  deleteSeries,TResult? Function( SeriesListItem series)?  createSeries,TResult? Function( int id)?  showSeries,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchSeries,TResult? Function()?  fetchNextPage,TResult? Function()?  fetchPreviousPage,TResult? Function( SeriesListItem series)?  updateSeries,TResult? Function( int seriesId)?  deleteSeries,TResult? Function( int id)?  showSeries,TResult? Function( SeriesListItem newSeries)?  createSeriesUpdate,}) {final _that = this;
 switch (_that) {
 case FetchSeriesEvent() when fetchSeries != null:
 return fetchSeries();case FetchNextPageEvent() when fetchNextPage != null:
 return fetchNextPage();case FetchPreviousPageEvent() when fetchPreviousPage != null:
 return fetchPreviousPage();case UpdateSeriesEvent() when updateSeries != null:
 return updateSeries(_that.series);case DeleteSeriesEvent() when deleteSeries != null:
-return deleteSeries(_that.seriesId);case CreateSeriesEvent() when createSeries != null:
-return createSeries(_that.series);case ShowSeriesEvent() when showSeries != null:
-return showSeries(_that.id);case _:
+return deleteSeries(_that.seriesId);case ShowSeriesEvent() when showSeries != null:
+return showSeries(_that.id);case CreateSeriesUpdate() when createSeriesUpdate != null:
+return createSeriesUpdate(_that.newSeries);case _:
   return null;
 
 }
@@ -210,7 +216,7 @@ return showSeries(_that.id);case _:
 /// @nodoc
 
 
-class FetchSeriesEvent implements SeriesEvent {
+class FetchSeriesEvent with DiagnosticableTreeMixin implements SeriesEvent {
   const FetchSeriesEvent();
   
 
@@ -218,6 +224,12 @@ class FetchSeriesEvent implements SeriesEvent {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SeriesEvent.fetchSeries'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -229,7 +241,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SeriesEvent.fetchSeries()';
 }
 
@@ -242,7 +254,7 @@ String toString() {
 /// @nodoc
 
 
-class FetchNextPageEvent implements SeriesEvent {
+class FetchNextPageEvent with DiagnosticableTreeMixin implements SeriesEvent {
   const FetchNextPageEvent();
   
 
@@ -250,6 +262,12 @@ class FetchNextPageEvent implements SeriesEvent {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SeriesEvent.fetchNextPage'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -261,7 +279,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SeriesEvent.fetchNextPage()';
 }
 
@@ -274,7 +292,7 @@ String toString() {
 /// @nodoc
 
 
-class FetchPreviousPageEvent implements SeriesEvent {
+class FetchPreviousPageEvent with DiagnosticableTreeMixin implements SeriesEvent {
   const FetchPreviousPageEvent();
   
 
@@ -282,6 +300,12 @@ class FetchPreviousPageEvent implements SeriesEvent {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SeriesEvent.fetchPreviousPage'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -293,7 +317,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SeriesEvent.fetchPreviousPage()';
 }
 
@@ -306,7 +330,7 @@ String toString() {
 /// @nodoc
 
 
-class UpdateSeriesEvent implements SeriesEvent {
+class UpdateSeriesEvent with DiagnosticableTreeMixin implements SeriesEvent {
   const UpdateSeriesEvent(this.series);
   
 
@@ -319,6 +343,12 @@ class UpdateSeriesEvent implements SeriesEvent {
 $UpdateSeriesEventCopyWith<UpdateSeriesEvent> get copyWith => _$UpdateSeriesEventCopyWithImpl<UpdateSeriesEvent>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SeriesEvent.updateSeries'))
+    ..add(DiagnosticsProperty('series', series));
+}
 
 @override
 bool operator ==(Object other) {
@@ -330,7 +360,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,series);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SeriesEvent.updateSeries(series: $series)';
 }
 
@@ -381,7 +411,7 @@ $SeriesListItemCopyWith<$Res> get series {
 /// @nodoc
 
 
-class DeleteSeriesEvent implements SeriesEvent {
+class DeleteSeriesEvent with DiagnosticableTreeMixin implements SeriesEvent {
   const DeleteSeriesEvent(this.seriesId);
   
 
@@ -394,6 +424,12 @@ class DeleteSeriesEvent implements SeriesEvent {
 $DeleteSeriesEventCopyWith<DeleteSeriesEvent> get copyWith => _$DeleteSeriesEventCopyWithImpl<DeleteSeriesEvent>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SeriesEvent.deleteSeries'))
+    ..add(DiagnosticsProperty('seriesId', seriesId));
+}
 
 @override
 bool operator ==(Object other) {
@@ -405,7 +441,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,seriesId);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SeriesEvent.deleteSeries(seriesId: $seriesId)';
 }
 
@@ -447,82 +483,7 @@ as int,
 /// @nodoc
 
 
-class CreateSeriesEvent implements SeriesEvent {
-  const CreateSeriesEvent(this.series);
-  
-
- final  SeriesListItem series;
-
-/// Create a copy of SeriesEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$CreateSeriesEventCopyWith<CreateSeriesEvent> get copyWith => _$CreateSeriesEventCopyWithImpl<CreateSeriesEvent>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateSeriesEvent&&(identical(other.series, series) || other.series == series));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,series);
-
-@override
-String toString() {
-  return 'SeriesEvent.createSeries(series: $series)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $CreateSeriesEventCopyWith<$Res> implements $SeriesEventCopyWith<$Res> {
-  factory $CreateSeriesEventCopyWith(CreateSeriesEvent value, $Res Function(CreateSeriesEvent) _then) = _$CreateSeriesEventCopyWithImpl;
-@useResult
-$Res call({
- SeriesListItem series
-});
-
-
-$SeriesListItemCopyWith<$Res> get series;
-
-}
-/// @nodoc
-class _$CreateSeriesEventCopyWithImpl<$Res>
-    implements $CreateSeriesEventCopyWith<$Res> {
-  _$CreateSeriesEventCopyWithImpl(this._self, this._then);
-
-  final CreateSeriesEvent _self;
-  final $Res Function(CreateSeriesEvent) _then;
-
-/// Create a copy of SeriesEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? series = null,}) {
-  return _then(CreateSeriesEvent(
-null == series ? _self.series : series // ignore: cast_nullable_to_non_nullable
-as SeriesListItem,
-  ));
-}
-
-/// Create a copy of SeriesEvent
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$SeriesListItemCopyWith<$Res> get series {
-  
-  return $SeriesListItemCopyWith<$Res>(_self.series, (value) {
-    return _then(_self.copyWith(series: value));
-  });
-}
-}
-
-/// @nodoc
-
-
-class ShowSeriesEvent implements SeriesEvent {
+class ShowSeriesEvent with DiagnosticableTreeMixin implements SeriesEvent {
   const ShowSeriesEvent(this.id);
   
 
@@ -535,6 +496,12 @@ class ShowSeriesEvent implements SeriesEvent {
 $ShowSeriesEventCopyWith<ShowSeriesEvent> get copyWith => _$ShowSeriesEventCopyWithImpl<ShowSeriesEvent>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SeriesEvent.showSeries'))
+    ..add(DiagnosticsProperty('id', id));
+}
 
 @override
 bool operator ==(Object other) {
@@ -546,7 +513,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,id);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'SeriesEvent.showSeries(id: $id)';
 }
 
@@ -583,6 +550,87 @@ as int,
 }
 
 
+}
+
+/// @nodoc
+
+
+class CreateSeriesUpdate with DiagnosticableTreeMixin implements SeriesEvent {
+  const CreateSeriesUpdate(this.newSeries);
+  
+
+ final  SeriesListItem newSeries;
+
+/// Create a copy of SeriesEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CreateSeriesUpdateCopyWith<CreateSeriesUpdate> get copyWith => _$CreateSeriesUpdateCopyWithImpl<CreateSeriesUpdate>(this, _$identity);
+
+
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'SeriesEvent.createSeriesUpdate'))
+    ..add(DiagnosticsProperty('newSeries', newSeries));
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateSeriesUpdate&&(identical(other.newSeries, newSeries) || other.newSeries == newSeries));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,newSeries);
+
+@override
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'SeriesEvent.createSeriesUpdate(newSeries: $newSeries)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $CreateSeriesUpdateCopyWith<$Res> implements $SeriesEventCopyWith<$Res> {
+  factory $CreateSeriesUpdateCopyWith(CreateSeriesUpdate value, $Res Function(CreateSeriesUpdate) _then) = _$CreateSeriesUpdateCopyWithImpl;
+@useResult
+$Res call({
+ SeriesListItem newSeries
+});
+
+
+$SeriesListItemCopyWith<$Res> get newSeries;
+
+}
+/// @nodoc
+class _$CreateSeriesUpdateCopyWithImpl<$Res>
+    implements $CreateSeriesUpdateCopyWith<$Res> {
+  _$CreateSeriesUpdateCopyWithImpl(this._self, this._then);
+
+  final CreateSeriesUpdate _self;
+  final $Res Function(CreateSeriesUpdate) _then;
+
+/// Create a copy of SeriesEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? newSeries = null,}) {
+  return _then(CreateSeriesUpdate(
+null == newSeries ? _self.newSeries : newSeries // ignore: cast_nullable_to_non_nullable
+as SeriesListItem,
+  ));
+}
+
+/// Create a copy of SeriesEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SeriesListItemCopyWith<$Res> get newSeries {
+  
+  return $SeriesListItemCopyWith<$Res>(_self.newSeries, (value) {
+    return _then(_self.copyWith(newSeries: value));
+  });
+}
 }
 
 // dart format on

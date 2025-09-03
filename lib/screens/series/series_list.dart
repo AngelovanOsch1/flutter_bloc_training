@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_bloc.dart';
 import 'package:flutter_bloc_training/blocs/series/series_bloc.dart';
+import 'package:flutter_bloc_training/blocs/series/series_create/series_create_bloc.dart';
 import 'package:flutter_bloc_training/blocs/series/series_event.dart';
 import 'package:flutter_bloc_training/blocs/series/series_state.dart';
 import 'package:flutter_bloc_training/models/series_list_item.dart';
 import 'package:flutter_bloc_training/repositories/series_image_cover_repository.dart';
+import 'package:flutter_bloc_training/repositories/series_repository.dart';
 import 'package:flutter_bloc_training/screens/series/series_create.dart';
 import 'package:flutter_bloc_training/screens/series/series_edit.dart';
 
@@ -40,7 +42,7 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (_) => BlocProvider(
-                          create: (_) => ImagePickerBloc(context.read<SeriesCoverImageRepository>()),
+                          create: (_) => CreateSeriesBloc(context.read<SeriesRepository>()),
                           child: const CreateSeriesScreen(),
                         ),
                       ),
