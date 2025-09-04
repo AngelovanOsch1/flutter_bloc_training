@@ -10,12 +10,11 @@ class SeriesBloc extends Bloc<SeriesEvent, SeriesState> {
 
   SeriesBloc(this.repository) : super(const SeriesState.initial()) {
     on<FetchSeriesEvent>(_onFetchSeries);
-    on<UpdateSeriesEvent>(_onUpdateSeries);
     on<DeleteSeriesEvent>(_onDeleteSeries);
     on<FetchNextPageEvent>(_onFetchNextPage);
     on<FetchPreviousPageEvent>(_onFetchPreviousPage);
-    on<ShowSeriesEvent>(_onShowSeries);
     on<CreateSeriesUpdate>(_onCreateSeriesUpdate);
+    on<EditSeriesUpdate>(_onEditSeriesUpdate);
   }
 
   Future<void> _onFetchSeries(FetchSeriesEvent event, Emitter<SeriesState> emit) async {
@@ -39,7 +38,7 @@ class SeriesBloc extends Bloc<SeriesEvent, SeriesState> {
     }
   }
 
-  Future<void> _onFetchPreviousPage(FetchPreviousPageEvent event, Emitter<SeriesState> emit) async {
+  void _onFetchPreviousPage(FetchPreviousPageEvent event, Emitter<SeriesState> emit) async {
     emit(const SeriesState.loading());
     try {
       currentPage -= 1;
@@ -50,22 +49,16 @@ class SeriesBloc extends Bloc<SeriesEvent, SeriesState> {
     }
   }
 
-  Future<void> _onUpdateSeries(UpdateSeriesEvent event, Emitter<SeriesState> emit) async {
-    try {
-      final updatedSeries = await repository.updateSeries(event.series);
-
-      state.maybeWhen(
-        loaded: (list) {
-          final updatedList = list.map((s) => s.id == updatedSeries.id ? updatedSeries : s).toList();
-          emit(SeriesState.loaded(updatedList));
-        },
-        orElse: () {
-          emit(SeriesState.loaded([updatedSeries]));
-        },
-      );
-    } catch (e) {
-      emit(SeriesState.error(e.toString()));
-    }
+  Future<void> _onEditSeriesUpdate(EditSeriesUpdate event, Emitter<SeriesState> emit) async {
+    state.maybeWhen(
+      loaded: (list) {
+        final updatedList = list.map((s) => s.id == event.updatedSeries.id ? event.updatedSeries : s).toList();
+        emit(SeriesState.loaded(updatedList));
+      },
+      orElse: () {
+        emit(SeriesState.loaded([event.updatedSeries]));
+      },
+    );
   }
 
   Future<void> _onDeleteSeries(DeleteSeriesEvent event, Emitter<SeriesState> emit) async {
@@ -83,7 +76,7 @@ class SeriesBloc extends Bloc<SeriesEvent, SeriesState> {
     }
   }
 
-  _onCreateSeriesUpdate(CreateSeriesUpdate event, Emitter<SeriesState> emit) {
+  void _onCreateSeriesUpdate(CreateSeriesUpdate event, Emitter<SeriesState> emit) {
     state.maybeWhen(
       loaded: (list) {
         final updatedList = List<SeriesListItem>.from(list)..add(event.newSeries);
@@ -93,13 +86,5 @@ class SeriesBloc extends Bloc<SeriesEvent, SeriesState> {
         emit(SeriesState.loaded([event.newSeries]));
       },
     );
-  }
-
-  Future<void> _onShowSeries(ShowSeriesEvent event, Emitter<SeriesState> emit) async {
-    try {
-      final series = await repository.showSeries(event.id);
-    } catch (e) {
-      emit(SeriesState.error(e.toString()));
-    }
   }
 }

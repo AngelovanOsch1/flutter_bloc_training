@@ -32,7 +32,6 @@ class SeriesRepository {
       headers: headers,
       body: jsonEncode(series.toJson()),
     );
-
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
       return SeriesListItem.fromJson(jsonResponse['data']);

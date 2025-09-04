@@ -5,8 +5,7 @@ part 'lol.g.dart';
 
 @freezed
 abstract class Character with _$Character {
-  const factory Character({required int id, required String name}) = _Character;
+  const factory Character({required int id, required String name, required String imageUrl}) = _Character;
 
-  factory Character.fromJson(Map<String, dynamic> json) =>
-      _$CharacterFromJson(json);
+  factory Character.fromJson(Map<String, dynamic> json) => _$CharacterFromJson(json);
 }

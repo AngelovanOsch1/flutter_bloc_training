@@ -9,8 +9,7 @@ abstract class SeriesEvent with _$SeriesEvent {
   const factory SeriesEvent.fetchSeries() = FetchSeriesEvent;
   const factory SeriesEvent.fetchNextPage() = FetchNextPageEvent;
   const factory SeriesEvent.fetchPreviousPage() = FetchPreviousPageEvent;
-  const factory SeriesEvent.updateSeries(SeriesListItem series) = UpdateSeriesEvent;
   const factory SeriesEvent.deleteSeries(int seriesId) = DeleteSeriesEvent;
-  const factory SeriesEvent.showSeries(int id) = ShowSeriesEvent;
   const factory SeriesEvent.createSeriesUpdate(SeriesListItem newSeries) = CreateSeriesUpdate;
+  const factory SeriesEvent.editSeriesUpdate(SeriesListItem updatedSeries) = EditSeriesUpdate;
 }

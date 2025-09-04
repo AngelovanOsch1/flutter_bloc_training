@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_bloc.dart';
 import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_state.dart';
 import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_event.dart';
+import 'package:flutter_bloc_training/blocs/series/series_edit/series_edit_bloc.dart';
+import 'package:flutter_bloc_training/blocs/series/series_edit/series_edit_event.dart';
+import 'package:flutter_bloc_training/blocs/series/series_edit/series_edit_state.dart';
 import 'package:flutter_bloc_training/models/series_list_item.dart';
 import 'package:flutter_bloc_training/validators/required_validator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -60,53 +63,56 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ImagePickerBloc, ImagePickerState>(
+    return BlocListener<SeriesEditBloc, SeriesEditState>(
       listener: (context, state) {
-        state.maybeWhen(coverImageError: _onError, orElse: () {});
+        state.maybeWhen(
+          loaded: (updatedSeries) {
+            context.read<SeriesBloc>().add(SeriesEvent.editSeriesUpdate(updatedSeries));
+            Navigator.pop(context);
+          },
+          error: (message) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+          },
+          orElse: () {},
+        );
       },
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Edit Series')),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.grey, width: 4),
-                      ),
-                      child: ClipOval(
-                        child: BlocBuilder<ImagePickerBloc, ImagePickerState>(
-                          buildWhen: (previous, current) =>
-                              current.maybeWhen(coverImagePicked: (_) => true, orElse: () => false),
-                          builder: (context, state) {
-                            return state.maybeWhen(
-                              coverImagePicked: (file) => Image.network(
-                                file,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    width: 100,
-                                    height: 100,
-                                    color: Colors.grey.shade300,
-                                    child: const Icon(Icons.broken_image, size: 50, color: Colors.white),
-                                  );
-                                },
-                              ),
-                              orElse: () {
-                                final url = widget.series.coverImage;
-                                if (url != null && url.isNotEmpty) {
+      child: BlocListener<ImagePickerBloc, ImagePickerState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            coverImagePicked: (coverImage) {
+              context.read<SeriesBloc>().add(SeriesEvent.editSeriesUpdate(coverImage));
+            },
+            coverImageError: _onError,
+            orElse: () {},
+          );
+        },
+        child: Scaffold(
+          appBar: AppBar(title: const Text('Edit Series')),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.grey, width: 4),
+                        ),
+                        child: ClipOval(
+                          child: BlocBuilder<ImagePickerBloc, ImagePickerState>(
+                            buildWhen: (previous, current) =>
+                                current.maybeWhen(coverImagePicked: (_) => true, orElse: () => false),
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                coverImagePicked: (seriesCoverImage) {
                                   return Image.network(
-                                    url,
+                                    seriesCoverImage.coverImage!,
                                     width: 100,
                                     height: 100,
                                     fit: BoxFit.cover,
@@ -119,94 +125,113 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
                                       );
                                     },
                                   );
-                                } else {
-                                  return Container(
-                                    width: 100,
-                                    height: 100,
-                                    color: Colors.grey.shade300,
-                                    child: const Icon(Icons.image, size: 50, color: Colors.white),
-                                  );
-                                }
-                              },
-                            );
-                          },
+                                },
+                                orElse: () {
+                                  final url = widget.series.coverImage;
+                                  if (url != null && url.isNotEmpty) {
+                                    return Image.network(
+                                      url,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return Container(
+                                          width: 100,
+                                          height: 100,
+                                          color: Colors.grey.shade300,
+                                          child: const Icon(Icons.broken_image, size: 50, color: Colors.white),
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return Container(
+                                      width: 100,
+                                      height: 100,
+                                      color: Colors.grey.shade300,
+                                      child: const Icon(Icons.image, size: 50, color: Colors.white),
+                                    );
+                                  }
+                                },
+                              );
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      bottom: 2,
-                      right: 2,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
-                          iconSize: 18,
-                          onPressed: () {
-                            context.read<ImagePickerBloc>().add(
-                              ImagePickerEvent.pickSeriesCoverImage(ImageSource.gallery, widget.series.id),
-                            );
-                          },
-                          icon: const Icon(Icons.create, color: Colors.white),
+                      Positioned(
+                        bottom: 2,
+                        right: 2,
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            iconSize: 18,
+                            onPressed: () {
+                              context.read<ImagePickerBloc>().add(
+                                ImagePickerEvent.pickSeriesCoverImage(ImageSource.gallery, widget.series.id),
+                              );
+                            },
+                            icon: const Icon(Icons.create, color: Colors.white),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: titleController,
-                  decoration: const InputDecoration(labelText: 'Title'),
-                  validator: RequiredValidator(fieldName: 'Title').call,
-                ),
-                TextFormField(
-                  controller: typeController,
-                  decoration: const InputDecoration(labelText: 'Type'),
-                  validator: RequiredValidator(fieldName: 'Type').call,
-                ),
-                TextFormField(
-                  controller: episodesController,
-                  decoration: const InputDecoration(labelText: 'Episodes'),
-                  keyboardType: TextInputType.number,
-                  validator: RequiredValidator(fieldName: 'Episodes').call,
-                ),
-                TextFormField(
-                  controller: minutesController,
-                  decoration: const InputDecoration(labelText: 'Minutes per Episode'),
-                  keyboardType: TextInputType.number,
-                  validator: RequiredValidator(fieldName: 'Minutes per Episode').call,
-                ),
-                TextFormField(
-                  controller: videoController,
-                  decoration: const InputDecoration(labelText: 'Video'),
-                  validator: RequiredValidator(fieldName: 'Video').call,
-                ),
-                TextFormField(
-                  controller: startDateController,
-                  decoration: const InputDecoration(labelText: 'Start Date'),
-                  validator: RequiredValidator(fieldName: 'Start Date').call,
-                ),
-                TextFormField(
-                  controller: endDateController,
-                  decoration: const InputDecoration(labelText: 'End Date'),
-                  validator: RequiredValidator(fieldName: 'End Date').call,
-                ),
-                TextFormField(
-                  controller: scoreController,
-                  decoration: const InputDecoration(labelText: 'Score'),
-                  keyboardType: TextInputType.number,
-                  validator: RequiredValidator(fieldName: 'Score').call,
-                ),
-                TextFormField(
-                  controller: synopsisController,
-                  decoration: const InputDecoration(labelText: 'Synopsis'),
-                  maxLines: 3,
-                  validator: RequiredValidator(fieldName: 'Synopsis').call,
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(onPressed: _save, child: const Text('Save')),
-              ],
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: titleController,
+                    decoration: const InputDecoration(labelText: 'Title'),
+                    validator: RequiredValidator(fieldName: 'Title').call,
+                  ),
+                  TextFormField(
+                    controller: typeController,
+                    decoration: const InputDecoration(labelText: 'Type'),
+                    validator: RequiredValidator(fieldName: 'Type').call,
+                  ),
+                  TextFormField(
+                    controller: episodesController,
+                    decoration: const InputDecoration(labelText: 'Episodes'),
+                    keyboardType: TextInputType.number,
+                    validator: RequiredValidator(fieldName: 'Episodes').call,
+                  ),
+                  TextFormField(
+                    controller: minutesController,
+                    decoration: const InputDecoration(labelText: 'Minutes per Episode'),
+                    keyboardType: TextInputType.number,
+                    validator: RequiredValidator(fieldName: 'Minutes per Episode').call,
+                  ),
+                  TextFormField(
+                    controller: videoController,
+                    decoration: const InputDecoration(labelText: 'Video'),
+                    validator: RequiredValidator(fieldName: 'Video').call,
+                  ),
+                  TextFormField(
+                    controller: startDateController,
+                    decoration: const InputDecoration(labelText: 'Start Date'),
+                    validator: RequiredValidator(fieldName: 'Start Date').call,
+                  ),
+                  TextFormField(
+                    controller: endDateController,
+                    decoration: const InputDecoration(labelText: 'End Date'),
+                    validator: RequiredValidator(fieldName: 'End Date').call,
+                  ),
+                  TextFormField(
+                    controller: scoreController,
+                    decoration: const InputDecoration(labelText: 'Score'),
+                    keyboardType: TextInputType.number,
+                    validator: RequiredValidator(fieldName: 'Score').call,
+                  ),
+                  TextFormField(
+                    controller: synopsisController,
+                    decoration: const InputDecoration(labelText: 'Synopsis'),
+                    maxLines: 3,
+                    validator: RequiredValidator(fieldName: 'Synopsis').call,
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(onPressed: _save, child: const Text('Save')),
+                ],
+              ),
             ),
           ),
         ),
@@ -232,8 +257,7 @@ class _EditSeriesScreenState extends State<EditSeriesScreen> {
         synopsis: synopsisController.text,
       );
 
-      context.read<SeriesBloc>().add(SeriesEvent.updateSeries(updatedSeries));
-      Navigator.pop(context);
+      context.read<SeriesEditBloc>().add(SeriesEditEvent.editSeries(updatedSeries));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please fill all required fields.")));
     }

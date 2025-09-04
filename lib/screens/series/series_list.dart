@@ -3,12 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_training/blocs/imagepicker/imagepicker_bloc.dart';
 import 'package:flutter_bloc_training/blocs/series/series_bloc.dart';
 import 'package:flutter_bloc_training/blocs/series/series_create/series_create_bloc.dart';
+import 'package:flutter_bloc_training/blocs/series/series_details/series_details_bloc.dart';
+import 'package:flutter_bloc_training/blocs/series/series_edit/series_edit_bloc.dart';
 import 'package:flutter_bloc_training/blocs/series/series_event.dart';
 import 'package:flutter_bloc_training/blocs/series/series_state.dart';
 import 'package:flutter_bloc_training/models/series_list_item.dart';
 import 'package:flutter_bloc_training/repositories/series_image_cover_repository.dart';
 import 'package:flutter_bloc_training/repositories/series_repository.dart';
 import 'package:flutter_bloc_training/screens/series/series_create.dart';
+import 'package:flutter_bloc_training/screens/series/series_details.dart';
 import 'package:flutter_bloc_training/screens/series/series_edit.dart';
 
 class SeriesListScreen extends StatefulWidget {
@@ -65,6 +68,17 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
                       itemBuilder: (context, index) {
                         final SeriesListItem series = seriesList[index];
                         return ListTile(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => BlocProvider(
+                                  create: (_) => SeriesDetailsBloc(context.read<SeriesRepository>()),
+                                  child: DetailsSeriesScreen(series.id),
+                                ),
+                              ),
+                            );
+                          },
                           leading: (series.coverImage != null && series.coverImage!.isNotEmpty)
                               ? Image.network(
                                   series.coverImage!,
@@ -99,7 +113,10 @@ class _SeriesListScreenState extends State<SeriesListScreen> {
                                     MaterialPageRoute(
                                       builder: (_) => BlocProvider(
                                         create: (_) => ImagePickerBloc(context.read<SeriesCoverImageRepository>()),
-                                        child: EditSeriesScreen(series: series),
+                                        child: BlocProvider(
+                                          create: (_) => SeriesEditBloc(context.read<SeriesRepository>()),
+                                          child: EditSeriesScreen(series: series),
+                                        ),
                                       ),
                                     ),
                                   );

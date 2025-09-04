@@ -5,9 +5,7 @@ part 'voice_actor.g.dart';
 
 @freezed
 abstract class VoiceActor with _$VoiceActor {
-  const factory VoiceActor({required int id, required String name}) =
-      _VoiceActor;
+  const factory VoiceActor({required int id, required String name, required String imageUrl}) = _VoiceActor;
 
-  factory VoiceActor.fromJson(Map<String, dynamic> json) =>
-      _$VoiceActorFromJson(json);
+  factory VoiceActor.fromJson(Map<String, dynamic> json) => _$VoiceActorFromJson(json);
 }

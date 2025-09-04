@@ -34,7 +34,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
     }
 
     try {
-      String seriesCoverImage = await repository.uploadSeriesCoverImage(file, id);
+      final seriesCoverImage = await repository.uploadSeriesCoverImage(file, id);
       emit(ImagePickerState.coverImagePicked(seriesCoverImage));
     } catch (e) {
       return emit(const ImagePickerState.coverImageError("Failed to upload cover image to server..."));

@@ -125,7 +125,7 @@ return coverImageError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( String seriesCoverImage)?  coverImagePicked,TResult Function( String message)?  coverImageError,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( SeriesListItem seriesCoverImage)?  coverImagePicked,TResult Function( String message)?  coverImageError,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case CoverImagePicked() when coverImagePicked != null:
@@ -148,7 +148,7 @@ return coverImageError(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( String seriesCoverImage)  coverImagePicked,required TResult Function( String message)  coverImageError,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( SeriesListItem seriesCoverImage)  coverImagePicked,required TResult Function( String message)  coverImageError,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case CoverImagePicked():
@@ -170,7 +170,7 @@ return coverImageError(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( String seriesCoverImage)?  coverImagePicked,TResult? Function( String message)?  coverImageError,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( SeriesListItem seriesCoverImage)?  coverImagePicked,TResult? Function( String message)?  coverImageError,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case CoverImagePicked() when coverImagePicked != null:
@@ -222,7 +222,7 @@ class CoverImagePicked implements ImagePickerState {
   const CoverImagePicked(this.seriesCoverImage);
   
 
- final  String seriesCoverImage;
+ final  SeriesListItem seriesCoverImage;
 
 /// Create a copy of ImagePickerState
 /// with the given fields replaced by the non-null parameter values.
@@ -254,11 +254,11 @@ abstract mixin class $CoverImagePickedCopyWith<$Res> implements $ImagePickerStat
   factory $CoverImagePickedCopyWith(CoverImagePicked value, $Res Function(CoverImagePicked) _then) = _$CoverImagePickedCopyWithImpl;
 @useResult
 $Res call({
- String seriesCoverImage
+ SeriesListItem seriesCoverImage
 });
 
 
-
+$SeriesListItemCopyWith<$Res> get seriesCoverImage;
 
 }
 /// @nodoc
@@ -274,11 +274,20 @@ class _$CoverImagePickedCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? seriesCoverImage = null,}) {
   return _then(CoverImagePicked(
 null == seriesCoverImage ? _self.seriesCoverImage : seriesCoverImage // ignore: cast_nullable_to_non_nullable
-as String,
+as SeriesListItem,
   ));
 }
 
-
+/// Create a copy of ImagePickerState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SeriesListItemCopyWith<$Res> get seriesCoverImage {
+  
+  return $SeriesListItemCopyWith<$Res>(_self.seriesCoverImage, (value) {
+    return _then(_self.copyWith(seriesCoverImage: value));
+  });
+}
 }
 
 /// @nodoc
