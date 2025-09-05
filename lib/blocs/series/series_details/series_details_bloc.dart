@@ -13,6 +13,7 @@ class SeriesDetailsBloc extends Bloc<SeriesDetailsEvent, SeriesDetailsState> {
   Future<void> _onfetchSeries(SeriesDetailsEvent event, Emitter<SeriesDetailsState> emit) async {
     try {
       final series = await repository.showSeries(event.seriesId);
+      print(series.characterVoiceActorsSeries[0].character.image);
       emit(SeriesDetailsState.loaded(series));
     } catch (e) {
       emit(SeriesDetailsState.error(e.toString()));

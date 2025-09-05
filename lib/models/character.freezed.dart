@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'lol.dart';
+part of 'character.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Character {
 
- int get id; String get name; String get imageUrl;
+ int get id; String get name; String get image;
 /// Create a copy of Character
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $CharacterCopyWith<Character> get copyWith => _$CharacterCopyWithImpl<Character>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Character&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Character&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.image, image) || other.image == image));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,imageUrl);
+int get hashCode => Object.hash(runtimeType,id,name,image);
 
 @override
 String toString() {
-  return 'Character(id: $id, name: $name, imageUrl: $imageUrl)';
+  return 'Character(id: $id, name: $name, image: $image)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $CharacterCopyWith<$Res>  {
   factory $CharacterCopyWith(Character value, $Res Function(Character) _then) = _$CharacterCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String imageUrl
+ int id, String name, String image
 });
 
 
@@ -65,11 +65,11 @@ class _$CharacterCopyWithImpl<$Res>
 
 /// Create a copy of Character
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? imageUrl = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? image = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -155,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String imageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String image)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Character() when $default != null:
-return $default(_that.id,_that.name,_that.imageUrl);case _:
+return $default(_that.id,_that.name,_that.image);case _:
   return orElse();
 
 }
@@ -176,10 +176,10 @@ return $default(_that.id,_that.name,_that.imageUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String imageUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String image)  $default,) {final _that = this;
 switch (_that) {
 case _Character():
-return $default(_that.id,_that.name,_that.imageUrl);case _:
+return $default(_that.id,_that.name,_that.image);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +196,10 @@ return $default(_that.id,_that.name,_that.imageUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String imageUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String image)?  $default,) {final _that = this;
 switch (_that) {
 case _Character() when $default != null:
-return $default(_that.id,_that.name,_that.imageUrl);case _:
+return $default(_that.id,_that.name,_that.image);case _:
   return null;
 
 }
@@ -211,12 +211,12 @@ return $default(_that.id,_that.name,_that.imageUrl);case _:
 @JsonSerializable()
 
 class _Character implements Character {
-  const _Character({required this.id, required this.name, required this.imageUrl});
+  const _Character({required this.id, required this.name, required this.image});
   factory _Character.fromJson(Map<String, dynamic> json) => _$CharacterFromJson(json);
 
 @override final  int id;
 @override final  String name;
-@override final  String imageUrl;
+@override final  String image;
 
 /// Create a copy of Character
 /// with the given fields replaced by the non-null parameter values.
@@ -231,16 +231,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Character&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Character&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.image, image) || other.image == image));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,imageUrl);
+int get hashCode => Object.hash(runtimeType,id,name,image);
 
 @override
 String toString() {
-  return 'Character(id: $id, name: $name, imageUrl: $imageUrl)';
+  return 'Character(id: $id, name: $name, image: $image)';
 }
 
 
@@ -251,7 +251,7 @@ abstract mixin class _$CharacterCopyWith<$Res> implements $CharacterCopyWith<$Re
   factory _$CharacterCopyWith(_Character value, $Res Function(_Character) _then) = __$CharacterCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String imageUrl
+ int id, String name, String image
 });
 
 
@@ -268,11 +268,11 @@ class __$CharacterCopyWithImpl<$Res>
 
 /// Create a copy of Character
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? imageUrl = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? image = null,}) {
   return _then(_Character(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

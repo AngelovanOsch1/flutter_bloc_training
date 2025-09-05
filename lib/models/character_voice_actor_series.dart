@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'lol.dart';
+import 'character.dart';
 import 'voice_actor.dart';
 
 part 'character_voice_actor_series.freezed.dart';
@@ -14,6 +14,5 @@ abstract class CharacterVoiceActorSeries with _$CharacterVoiceActorSeries {
     required VoiceActor voiceActor,
   }) = _CharacterVoiceActorSeries;
 
-  factory CharacterVoiceActorSeries.fromJson(Map<String, dynamic> json) =>
-      _$CharacterVoiceActorSeriesFromJson(json);
+  factory CharacterVoiceActorSeries.fromJson(Map<String, dynamic> json) => _$CharacterVoiceActorSeriesFromJson(json);
 }

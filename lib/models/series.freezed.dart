@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Series {
 
- int get id; String get title; String get type; String get coverImage; int get episodeCount; int get minutesPerEpisode; String get airedStartDate; String get airedEndDate; double get score; String get synopsis; List<Genre> get genres; List<Studio> get studios; List<CharacterVoiceActorSeries> get characterVoiceActorsSeries; List<Theme> get themes;
+ int get id; String get title; String get type; String get coverImage; int get episodeCount; int get minutesPerEpisode; String get airedStartDate; String get airedEndDate; double get score; String get synopsis; List<Genre> get genres; List<Studio> get studios;@JsonKey(name: 'character_voice_actors') List<CharacterVoiceActorSeries> get characterVoiceActorsSeries; List<Theme> get themes;
 /// Create a copy of Series
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $SeriesCopyWith<$Res>  {
   factory $SeriesCopyWith(Series value, $Res Function(Series) _then) = _$SeriesCopyWithImpl;
 @useResult
 $Res call({
- int id, String title, String type, String coverImage, int episodeCount, int minutesPerEpisode, String airedStartDate, String airedEndDate, double score, String synopsis, List<Genre> genres, List<Studio> studios, List<CharacterVoiceActorSeries> characterVoiceActorsSeries, List<Theme> themes
+ int id, String title, String type, String coverImage, int episodeCount, int minutesPerEpisode, String airedStartDate, String airedEndDate, double score, String synopsis, List<Genre> genres, List<Studio> studios,@JsonKey(name: 'character_voice_actors') List<CharacterVoiceActorSeries> characterVoiceActorsSeries, List<Theme> themes
 });
 
 
@@ -166,7 +166,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios,  List<CharacterVoiceActorSeries> characterVoiceActorsSeries,  List<Theme> themes)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios, @JsonKey(name: 'character_voice_actors')  List<CharacterVoiceActorSeries> characterVoiceActorsSeries,  List<Theme> themes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Series() when $default != null:
 return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis,_that.genres,_that.studios,_that.characterVoiceActorsSeries,_that.themes);case _:
@@ -187,7 +187,7 @@ return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCo
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios,  List<CharacterVoiceActorSeries> characterVoiceActorsSeries,  List<Theme> themes)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios, @JsonKey(name: 'character_voice_actors')  List<CharacterVoiceActorSeries> characterVoiceActorsSeries,  List<Theme> themes)  $default,) {final _that = this;
 switch (_that) {
 case _Series():
 return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis,_that.genres,_that.studios,_that.characterVoiceActorsSeries,_that.themes);case _:
@@ -207,7 +207,7 @@ return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCo
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios,  List<CharacterVoiceActorSeries> characterVoiceActorsSeries,  List<Theme> themes)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios, @JsonKey(name: 'character_voice_actors')  List<CharacterVoiceActorSeries> characterVoiceActorsSeries,  List<Theme> themes)?  $default,) {final _that = this;
 switch (_that) {
 case _Series() when $default != null:
 return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis,_that.genres,_that.studios,_that.characterVoiceActorsSeries,_that.themes);case _:
@@ -222,7 +222,7 @@ return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCo
 @JsonSerializable()
 
 class _Series implements Series {
-  const _Series({required this.id, required this.title, required this.type, required this.coverImage, required this.episodeCount, required this.minutesPerEpisode, required this.airedStartDate, required this.airedEndDate, required this.score, required this.synopsis, required final  List<Genre> genres, required final  List<Studio> studios, required final  List<CharacterVoiceActorSeries> characterVoiceActorsSeries, required final  List<Theme> themes}): _genres = genres,_studios = studios,_characterVoiceActorsSeries = characterVoiceActorsSeries,_themes = themes;
+  const _Series({required this.id, required this.title, required this.type, required this.coverImage, required this.episodeCount, required this.minutesPerEpisode, required this.airedStartDate, required this.airedEndDate, required this.score, required this.synopsis, required final  List<Genre> genres, required final  List<Studio> studios, @JsonKey(name: 'character_voice_actors') required final  List<CharacterVoiceActorSeries> characterVoiceActorsSeries, required final  List<Theme> themes}): _genres = genres,_studios = studios,_characterVoiceActorsSeries = characterVoiceActorsSeries,_themes = themes;
   factory _Series.fromJson(Map<String, dynamic> json) => _$SeriesFromJson(json);
 
 @override final  int id;
@@ -250,7 +250,7 @@ class _Series implements Series {
 }
 
  final  List<CharacterVoiceActorSeries> _characterVoiceActorsSeries;
-@override List<CharacterVoiceActorSeries> get characterVoiceActorsSeries {
+@override@JsonKey(name: 'character_voice_actors') List<CharacterVoiceActorSeries> get characterVoiceActorsSeries {
   if (_characterVoiceActorsSeries is EqualUnmodifiableListView) return _characterVoiceActorsSeries;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_characterVoiceActorsSeries);
@@ -297,7 +297,7 @@ abstract mixin class _$SeriesCopyWith<$Res> implements $SeriesCopyWith<$Res> {
   factory _$SeriesCopyWith(_Series value, $Res Function(_Series) _then) = __$SeriesCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title, String type, String coverImage, int episodeCount, int minutesPerEpisode, String airedStartDate, String airedEndDate, double score, String synopsis, List<Genre> genres, List<Studio> studios, List<CharacterVoiceActorSeries> characterVoiceActorsSeries, List<Theme> themes
+ int id, String title, String type, String coverImage, int episodeCount, int minutesPerEpisode, String airedStartDate, String airedEndDate, double score, String synopsis, List<Genre> genres, List<Studio> studios,@JsonKey(name: 'character_voice_actors') List<CharacterVoiceActorSeries> characterVoiceActorsSeries, List<Theme> themes
 });
 
 

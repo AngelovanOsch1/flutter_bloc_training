@@ -23,13 +23,9 @@ _Series _$SeriesFromJson(Map<String, dynamic> json) => _Series(
   studios: (json['studios'] as List<dynamic>)
       .map((e) => Studio.fromJson(e as Map<String, dynamic>))
       .toList(),
-  characterVoiceActorsSeries:
-      (json['character_voice_actors_series'] as List<dynamic>)
-          .map(
-            (e) =>
-                CharacterVoiceActorSeries.fromJson(e as Map<String, dynamic>),
-          )
-          .toList(),
+  characterVoiceActorsSeries: (json['character_voice_actors'] as List<dynamic>)
+      .map((e) => CharacterVoiceActorSeries.fromJson(e as Map<String, dynamic>))
+      .toList(),
   themes: (json['themes'] as List<dynamic>)
       .map((e) => Theme.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -48,7 +44,7 @@ Map<String, dynamic> _$SeriesToJson(_Series instance) => <String, dynamic>{
   'synopsis': instance.synopsis,
   'genres': instance.genres.map((e) => e.toJson()).toList(),
   'studios': instance.studios.map((e) => e.toJson()).toList(),
-  'character_voice_actors_series': instance.characterVoiceActorsSeries
+  'character_voice_actors': instance.characterVoiceActorsSeries
       .map((e) => e.toJson())
       .toList(),
   'themes': instance.themes.map((e) => e.toJson()).toList(),

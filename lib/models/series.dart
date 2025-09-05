@@ -22,7 +22,7 @@ abstract class Series with _$Series {
     required String synopsis,
     required List<Genre> genres,
     required List<Studio> studios,
-    required List<CharacterVoiceActorSeries> characterVoiceActorsSeries,
+    @JsonKey(name: 'character_voice_actors') required List<CharacterVoiceActorSeries> characterVoiceActorsSeries,
     required List<Theme> themes,
   }) = _Series;
 
