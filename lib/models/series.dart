@@ -1,4 +1,4 @@
-import 'package:flutter_bloc_training/models/character_voice_actor_series.dart';
+import 'package:flutter_bloc_training/models/character_voice_actor.dart';
 import 'package:flutter_bloc_training/models/genre.dart';
 import 'package:flutter_bloc_training/models/studio.dart';
 import 'package:flutter_bloc_training/models/theme.dart';
@@ -22,7 +22,7 @@ abstract class Series with _$Series {
     required String synopsis,
     required List<Genre> genres,
     required List<Studio> studios,
-    @JsonKey(name: 'character_voice_actors') required List<CharacterVoiceActorSeries> characterVoiceActorsSeries,
+    required List<CharacterVoiceActor> characterVoiceActors,
     required List<Theme> themes,
   }) = _Series;
 

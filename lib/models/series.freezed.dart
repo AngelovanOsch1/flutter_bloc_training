@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Series {
 
- int get id; String get title; String get type; String get coverImage; int get episodeCount; int get minutesPerEpisode; String get airedStartDate; String get airedEndDate; double get score; String get synopsis; List<Genre> get genres; List<Studio> get studios;@JsonKey(name: 'character_voice_actors') List<CharacterVoiceActorSeries> get characterVoiceActorsSeries; List<Theme> get themes;
+ int get id; String get title; String get type; String get coverImage; int get episodeCount; int get minutesPerEpisode; String get airedStartDate; String get airedEndDate; double get score; String get synopsis; List<Genre> get genres; List<Studio> get studios; List<CharacterVoiceActor> get characterVoiceActors; List<Theme> get themes;
 /// Create a copy of Series
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $SeriesCopyWith<Series> get copyWith => _$SeriesCopyWithImpl<Series>(this as Ser
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Series&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.coverImage, coverImage) || other.coverImage == coverImage)&&(identical(other.episodeCount, episodeCount) || other.episodeCount == episodeCount)&&(identical(other.minutesPerEpisode, minutesPerEpisode) || other.minutesPerEpisode == minutesPerEpisode)&&(identical(other.airedStartDate, airedStartDate) || other.airedStartDate == airedStartDate)&&(identical(other.airedEndDate, airedEndDate) || other.airedEndDate == airedEndDate)&&(identical(other.score, score) || other.score == score)&&(identical(other.synopsis, synopsis) || other.synopsis == synopsis)&&const DeepCollectionEquality().equals(other.genres, genres)&&const DeepCollectionEquality().equals(other.studios, studios)&&const DeepCollectionEquality().equals(other.characterVoiceActorsSeries, characterVoiceActorsSeries)&&const DeepCollectionEquality().equals(other.themes, themes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Series&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.coverImage, coverImage) || other.coverImage == coverImage)&&(identical(other.episodeCount, episodeCount) || other.episodeCount == episodeCount)&&(identical(other.minutesPerEpisode, minutesPerEpisode) || other.minutesPerEpisode == minutesPerEpisode)&&(identical(other.airedStartDate, airedStartDate) || other.airedStartDate == airedStartDate)&&(identical(other.airedEndDate, airedEndDate) || other.airedEndDate == airedEndDate)&&(identical(other.score, score) || other.score == score)&&(identical(other.synopsis, synopsis) || other.synopsis == synopsis)&&const DeepCollectionEquality().equals(other.genres, genres)&&const DeepCollectionEquality().equals(other.studios, studios)&&const DeepCollectionEquality().equals(other.characterVoiceActors, characterVoiceActors)&&const DeepCollectionEquality().equals(other.themes, themes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,type,coverImage,episodeCount,minutesPerEpisode,airedStartDate,airedEndDate,score,synopsis,const DeepCollectionEquality().hash(genres),const DeepCollectionEquality().hash(studios),const DeepCollectionEquality().hash(characterVoiceActorsSeries),const DeepCollectionEquality().hash(themes));
+int get hashCode => Object.hash(runtimeType,id,title,type,coverImage,episodeCount,minutesPerEpisode,airedStartDate,airedEndDate,score,synopsis,const DeepCollectionEquality().hash(genres),const DeepCollectionEquality().hash(studios),const DeepCollectionEquality().hash(characterVoiceActors),const DeepCollectionEquality().hash(themes));
 
 @override
 String toString() {
-  return 'Series(id: $id, title: $title, type: $type, coverImage: $coverImage, episodeCount: $episodeCount, minutesPerEpisode: $minutesPerEpisode, airedStartDate: $airedStartDate, airedEndDate: $airedEndDate, score: $score, synopsis: $synopsis, genres: $genres, studios: $studios, characterVoiceActorsSeries: $characterVoiceActorsSeries, themes: $themes)';
+  return 'Series(id: $id, title: $title, type: $type, coverImage: $coverImage, episodeCount: $episodeCount, minutesPerEpisode: $minutesPerEpisode, airedStartDate: $airedStartDate, airedEndDate: $airedEndDate, score: $score, synopsis: $synopsis, genres: $genres, studios: $studios, characterVoiceActors: $characterVoiceActors, themes: $themes)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $SeriesCopyWith<$Res>  {
   factory $SeriesCopyWith(Series value, $Res Function(Series) _then) = _$SeriesCopyWithImpl;
 @useResult
 $Res call({
- int id, String title, String type, String coverImage, int episodeCount, int minutesPerEpisode, String airedStartDate, String airedEndDate, double score, String synopsis, List<Genre> genres, List<Studio> studios,@JsonKey(name: 'character_voice_actors') List<CharacterVoiceActorSeries> characterVoiceActorsSeries, List<Theme> themes
+ int id, String title, String type, String coverImage, int episodeCount, int minutesPerEpisode, String airedStartDate, String airedEndDate, double score, String synopsis, List<Genre> genres, List<Studio> studios, List<CharacterVoiceActor> characterVoiceActors, List<Theme> themes
 });
 
 
@@ -65,7 +65,7 @@ class _$SeriesCopyWithImpl<$Res>
 
 /// Create a copy of Series
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? type = null,Object? coverImage = null,Object? episodeCount = null,Object? minutesPerEpisode = null,Object? airedStartDate = null,Object? airedEndDate = null,Object? score = null,Object? synopsis = null,Object? genres = null,Object? studios = null,Object? characterVoiceActorsSeries = null,Object? themes = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? type = null,Object? coverImage = null,Object? episodeCount = null,Object? minutesPerEpisode = null,Object? airedStartDate = null,Object? airedEndDate = null,Object? score = null,Object? synopsis = null,Object? genres = null,Object? studios = null,Object? characterVoiceActors = null,Object? themes = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -79,8 +79,8 @@ as String,score: null == score ? _self.score : score // ignore: cast_nullable_to
 as double,synopsis: null == synopsis ? _self.synopsis : synopsis // ignore: cast_nullable_to_non_nullable
 as String,genres: null == genres ? _self.genres : genres // ignore: cast_nullable_to_non_nullable
 as List<Genre>,studios: null == studios ? _self.studios : studios // ignore: cast_nullable_to_non_nullable
-as List<Studio>,characterVoiceActorsSeries: null == characterVoiceActorsSeries ? _self.characterVoiceActorsSeries : characterVoiceActorsSeries // ignore: cast_nullable_to_non_nullable
-as List<CharacterVoiceActorSeries>,themes: null == themes ? _self.themes : themes // ignore: cast_nullable_to_non_nullable
+as List<Studio>,characterVoiceActors: null == characterVoiceActors ? _self.characterVoiceActors : characterVoiceActors // ignore: cast_nullable_to_non_nullable
+as List<CharacterVoiceActor>,themes: null == themes ? _self.themes : themes // ignore: cast_nullable_to_non_nullable
 as List<Theme>,
   ));
 }
@@ -166,10 +166,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios, @JsonKey(name: 'character_voice_actors')  List<CharacterVoiceActorSeries> characterVoiceActorsSeries,  List<Theme> themes)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios,  List<CharacterVoiceActor> characterVoiceActors,  List<Theme> themes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Series() when $default != null:
-return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis,_that.genres,_that.studios,_that.characterVoiceActorsSeries,_that.themes);case _:
+return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis,_that.genres,_that.studios,_that.characterVoiceActors,_that.themes);case _:
   return orElse();
 
 }
@@ -187,10 +187,10 @@ return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCo
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios, @JsonKey(name: 'character_voice_actors')  List<CharacterVoiceActorSeries> characterVoiceActorsSeries,  List<Theme> themes)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios,  List<CharacterVoiceActor> characterVoiceActors,  List<Theme> themes)  $default,) {final _that = this;
 switch (_that) {
 case _Series():
-return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis,_that.genres,_that.studios,_that.characterVoiceActorsSeries,_that.themes);case _:
+return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis,_that.genres,_that.studios,_that.characterVoiceActors,_that.themes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -207,10 +207,10 @@ return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCo
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios, @JsonKey(name: 'character_voice_actors')  List<CharacterVoiceActorSeries> characterVoiceActorsSeries,  List<Theme> themes)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String type,  String coverImage,  int episodeCount,  int minutesPerEpisode,  String airedStartDate,  String airedEndDate,  double score,  String synopsis,  List<Genre> genres,  List<Studio> studios,  List<CharacterVoiceActor> characterVoiceActors,  List<Theme> themes)?  $default,) {final _that = this;
 switch (_that) {
 case _Series() when $default != null:
-return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis,_that.genres,_that.studios,_that.characterVoiceActorsSeries,_that.themes);case _:
+return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCount,_that.minutesPerEpisode,_that.airedStartDate,_that.airedEndDate,_that.score,_that.synopsis,_that.genres,_that.studios,_that.characterVoiceActors,_that.themes);case _:
   return null;
 
 }
@@ -222,7 +222,7 @@ return $default(_that.id,_that.title,_that.type,_that.coverImage,_that.episodeCo
 @JsonSerializable()
 
 class _Series implements Series {
-  const _Series({required this.id, required this.title, required this.type, required this.coverImage, required this.episodeCount, required this.minutesPerEpisode, required this.airedStartDate, required this.airedEndDate, required this.score, required this.synopsis, required final  List<Genre> genres, required final  List<Studio> studios, @JsonKey(name: 'character_voice_actors') required final  List<CharacterVoiceActorSeries> characterVoiceActorsSeries, required final  List<Theme> themes}): _genres = genres,_studios = studios,_characterVoiceActorsSeries = characterVoiceActorsSeries,_themes = themes;
+  const _Series({required this.id, required this.title, required this.type, required this.coverImage, required this.episodeCount, required this.minutesPerEpisode, required this.airedStartDate, required this.airedEndDate, required this.score, required this.synopsis, required final  List<Genre> genres, required final  List<Studio> studios, required final  List<CharacterVoiceActor> characterVoiceActors, required final  List<Theme> themes}): _genres = genres,_studios = studios,_characterVoiceActors = characterVoiceActors,_themes = themes;
   factory _Series.fromJson(Map<String, dynamic> json) => _$SeriesFromJson(json);
 
 @override final  int id;
@@ -249,11 +249,11 @@ class _Series implements Series {
   return EqualUnmodifiableListView(_studios);
 }
 
- final  List<CharacterVoiceActorSeries> _characterVoiceActorsSeries;
-@override@JsonKey(name: 'character_voice_actors') List<CharacterVoiceActorSeries> get characterVoiceActorsSeries {
-  if (_characterVoiceActorsSeries is EqualUnmodifiableListView) return _characterVoiceActorsSeries;
+ final  List<CharacterVoiceActor> _characterVoiceActors;
+@override List<CharacterVoiceActor> get characterVoiceActors {
+  if (_characterVoiceActors is EqualUnmodifiableListView) return _characterVoiceActors;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_characterVoiceActorsSeries);
+  return EqualUnmodifiableListView(_characterVoiceActors);
 }
 
  final  List<Theme> _themes;
@@ -277,16 +277,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Series&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.coverImage, coverImage) || other.coverImage == coverImage)&&(identical(other.episodeCount, episodeCount) || other.episodeCount == episodeCount)&&(identical(other.minutesPerEpisode, minutesPerEpisode) || other.minutesPerEpisode == minutesPerEpisode)&&(identical(other.airedStartDate, airedStartDate) || other.airedStartDate == airedStartDate)&&(identical(other.airedEndDate, airedEndDate) || other.airedEndDate == airedEndDate)&&(identical(other.score, score) || other.score == score)&&(identical(other.synopsis, synopsis) || other.synopsis == synopsis)&&const DeepCollectionEquality().equals(other._genres, _genres)&&const DeepCollectionEquality().equals(other._studios, _studios)&&const DeepCollectionEquality().equals(other._characterVoiceActorsSeries, _characterVoiceActorsSeries)&&const DeepCollectionEquality().equals(other._themes, _themes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Series&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.type, type) || other.type == type)&&(identical(other.coverImage, coverImage) || other.coverImage == coverImage)&&(identical(other.episodeCount, episodeCount) || other.episodeCount == episodeCount)&&(identical(other.minutesPerEpisode, minutesPerEpisode) || other.minutesPerEpisode == minutesPerEpisode)&&(identical(other.airedStartDate, airedStartDate) || other.airedStartDate == airedStartDate)&&(identical(other.airedEndDate, airedEndDate) || other.airedEndDate == airedEndDate)&&(identical(other.score, score) || other.score == score)&&(identical(other.synopsis, synopsis) || other.synopsis == synopsis)&&const DeepCollectionEquality().equals(other._genres, _genres)&&const DeepCollectionEquality().equals(other._studios, _studios)&&const DeepCollectionEquality().equals(other._characterVoiceActors, _characterVoiceActors)&&const DeepCollectionEquality().equals(other._themes, _themes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,type,coverImage,episodeCount,minutesPerEpisode,airedStartDate,airedEndDate,score,synopsis,const DeepCollectionEquality().hash(_genres),const DeepCollectionEquality().hash(_studios),const DeepCollectionEquality().hash(_characterVoiceActorsSeries),const DeepCollectionEquality().hash(_themes));
+int get hashCode => Object.hash(runtimeType,id,title,type,coverImage,episodeCount,minutesPerEpisode,airedStartDate,airedEndDate,score,synopsis,const DeepCollectionEquality().hash(_genres),const DeepCollectionEquality().hash(_studios),const DeepCollectionEquality().hash(_characterVoiceActors),const DeepCollectionEquality().hash(_themes));
 
 @override
 String toString() {
-  return 'Series(id: $id, title: $title, type: $type, coverImage: $coverImage, episodeCount: $episodeCount, minutesPerEpisode: $minutesPerEpisode, airedStartDate: $airedStartDate, airedEndDate: $airedEndDate, score: $score, synopsis: $synopsis, genres: $genres, studios: $studios, characterVoiceActorsSeries: $characterVoiceActorsSeries, themes: $themes)';
+  return 'Series(id: $id, title: $title, type: $type, coverImage: $coverImage, episodeCount: $episodeCount, minutesPerEpisode: $minutesPerEpisode, airedStartDate: $airedStartDate, airedEndDate: $airedEndDate, score: $score, synopsis: $synopsis, genres: $genres, studios: $studios, characterVoiceActors: $characterVoiceActors, themes: $themes)';
 }
 
 
@@ -297,7 +297,7 @@ abstract mixin class _$SeriesCopyWith<$Res> implements $SeriesCopyWith<$Res> {
   factory _$SeriesCopyWith(_Series value, $Res Function(_Series) _then) = __$SeriesCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title, String type, String coverImage, int episodeCount, int minutesPerEpisode, String airedStartDate, String airedEndDate, double score, String synopsis, List<Genre> genres, List<Studio> studios,@JsonKey(name: 'character_voice_actors') List<CharacterVoiceActorSeries> characterVoiceActorsSeries, List<Theme> themes
+ int id, String title, String type, String coverImage, int episodeCount, int minutesPerEpisode, String airedStartDate, String airedEndDate, double score, String synopsis, List<Genre> genres, List<Studio> studios, List<CharacterVoiceActor> characterVoiceActors, List<Theme> themes
 });
 
 
@@ -314,7 +314,7 @@ class __$SeriesCopyWithImpl<$Res>
 
 /// Create a copy of Series
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? type = null,Object? coverImage = null,Object? episodeCount = null,Object? minutesPerEpisode = null,Object? airedStartDate = null,Object? airedEndDate = null,Object? score = null,Object? synopsis = null,Object? genres = null,Object? studios = null,Object? characterVoiceActorsSeries = null,Object? themes = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? type = null,Object? coverImage = null,Object? episodeCount = null,Object? minutesPerEpisode = null,Object? airedStartDate = null,Object? airedEndDate = null,Object? score = null,Object? synopsis = null,Object? genres = null,Object? studios = null,Object? characterVoiceActors = null,Object? themes = null,}) {
   return _then(_Series(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -328,8 +328,8 @@ as String,score: null == score ? _self.score : score // ignore: cast_nullable_to
 as double,synopsis: null == synopsis ? _self.synopsis : synopsis // ignore: cast_nullable_to_non_nullable
 as String,genres: null == genres ? _self._genres : genres // ignore: cast_nullable_to_non_nullable
 as List<Genre>,studios: null == studios ? _self._studios : studios // ignore: cast_nullable_to_non_nullable
-as List<Studio>,characterVoiceActorsSeries: null == characterVoiceActorsSeries ? _self._characterVoiceActorsSeries : characterVoiceActorsSeries // ignore: cast_nullable_to_non_nullable
-as List<CharacterVoiceActorSeries>,themes: null == themes ? _self._themes : themes // ignore: cast_nullable_to_non_nullable
+as List<Studio>,characterVoiceActors: null == characterVoiceActors ? _self._characterVoiceActors : characterVoiceActors // ignore: cast_nullable_to_non_nullable
+as List<CharacterVoiceActor>,themes: null == themes ? _self._themes : themes // ignore: cast_nullable_to_non_nullable
 as List<Theme>,
   ));
 }

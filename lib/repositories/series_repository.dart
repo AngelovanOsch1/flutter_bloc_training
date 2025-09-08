@@ -1,12 +1,6 @@
 import 'dart:convert';
-import 'package:flutter_bloc_training/models/character_voice_actor_series.dart';
-import 'package:flutter_bloc_training/models/genre.dart';
-import 'package:flutter_bloc_training/models/character.dart';
 import 'package:flutter_bloc_training/models/series.dart';
 import 'package:flutter_bloc_training/models/series_list_item.dart';
-import 'package:flutter_bloc_training/models/studio.dart';
-import 'package:flutter_bloc_training/models/theme.dart';
-import 'package:flutter_bloc_training/models/voice_actor.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 

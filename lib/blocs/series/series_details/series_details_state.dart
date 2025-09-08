@@ -7,6 +7,6 @@ part 'series_details_state.freezed.dart';
 class SeriesDetailsState with _$SeriesDetailsState {
   const factory SeriesDetailsState.initial() = _Initial;
   const factory SeriesDetailsState.loading() = _Loading;
-  const factory SeriesDetailsState.loaded(Series series) = _Loaded;
   const factory SeriesDetailsState.error(String message) = _Error;
+  const factory SeriesDetailsState.loaded(Series series) = _Loaded;
 }

@@ -57,7 +57,7 @@ class _DetailsSeriesScreenState extends State<DetailsSeriesScreen> {
 
                   // Character Voice Actors
                   Text("Characters & Voice Actors:", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  ...series.characterVoiceActorsSeries.map(
+                  ...series.characterVoiceActors.map(
                     (cva) => ListTile(
                       leading: CircleAvatar(backgroundImage: NetworkImage(cva.character.image)),
                       title: Text(cva.character.name),
